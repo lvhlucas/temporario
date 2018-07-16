@@ -1,0 +1,73 @@
+{% extends 'normasPDF/base.html' %}
+
+{% block content %}
+
+
+<div>
+    {% for documento in documento %}
+    <button type="button" class="btn btn-primary" id="{{documento}}DB')"
+            onclick="myFunction('{{documento}}D','{{documento}}DB')">+
+    </button>
+    {{documento}}
+    <br>
+    <div id="{{documento}}D" style="display:none">
+        <table name="tableT">
+            <tr>
+                <td>
+                    <!--buscar os titulos relacionados ao documento-->
+                    {% for titulo in titulo %}
+                    {% if titulo.normapdf_set.all %}
+                    <button type="button" class="btn btn-primary" onclick="myFunction('{{documento}}.{{titulo}}T')">+
+                    </button>
+                    {% else %}
+                    <button type="button" class="btn btn-primary" desativate>+</button>
+                    {% endif %}
+
+                    {{titulo}}
+                    <br>
+                    <div id="{{documento}}.{{titulo}}T" style="display:none">
+                        <table name="tableN">
+                            <tr>
+                                <th>Norma</th>
+                                <th>Descrição</th>
+                            </tr>
+                            {% for norma in norma %}
+                            {% if norma.tituloFK == titulo %}
+                            <tr>
+                                <td>{{norma.norma1}}.{{norma.norma2}}.{{norma.norma3}}</td>
+                                <td>{{norma.conteudo}}</td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% endfor %}
+                </td>
+            </tr>
+
+        </table>
+        <br>
+        <br>
+    </div>
+    {% endfor %}
+</div>
+
+{% block inner_js %}
+<script type="text/javascript">
+        $(document).ready()
+            function myFunction(id,idB)
+            {
+                var x = document.getElementById(id);
+                var y = document.getElementById(idB);
+                console.log(idB);
+                console.log(y);
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            }
+
+</script>
+{% endblock inner_js %}
+{% endblock %}

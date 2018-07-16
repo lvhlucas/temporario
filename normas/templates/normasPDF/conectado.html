@@ -1,0 +1,10 @@
+{% extends "normasPDF/base.html" %}
+
+
+{% block content %}
+
+<a href="{% url 'normas:exibe_normas' %}" class="btn btn-default">Buscar normas</a>
+<a  class="btn btn-default">Empresas</a>
+<a  class="btn btn-default">Funcionáios</a>
+<a  class="btn btn-default">Treinamentos</a>
+{% endblock %}
