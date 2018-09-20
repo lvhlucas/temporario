@@ -1,8 +1,16 @@
-{% extends 'normasPDF/base.html' %}
+{% extends 'normasPDF/conectado.html' %}
 
-{% block content %}
+{% block conectado %}
 
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+.btn-primary{
 
+}
+
+</style>
 <div>
     {% for documento in documento %}
     <button type="button" class="btn btn-primary" id="{{documento}}DB')"
@@ -14,13 +22,12 @@
         <table name="tableT">
             <tr>
                 <td>
-                    <!--buscar os titulos relacionados ao documento-->
                     {% for titulo in titulo %}
                     {% if titulo.normapdf_set.all %}
-                    <button type="button" class="btn btn-primary" onclick="myFunction('{{documento}}.{{titulo}}T')">+
+                    <button type="button" class="btn btn-primary " onclick="myFunction('{{documento}}.{{titulo}}T')">+
                     </button>
                     {% else %}
-                    <button type="button" class="btn btn-primary" desativate>+</button>
+                    <button type="button" class="btn btn-primary" disabled>+</button>
                     {% endif %}
 
                     {{titulo}}
@@ -46,8 +53,7 @@
             </tr>
 
         </table>
-        <br>
-        <br>
+
     </div>
     {% endfor %}
 </div>
@@ -67,6 +73,7 @@
                     x.style.display = "none";
                 }
             }
+
 
 </script>
 {% endblock inner_js %}

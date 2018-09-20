@@ -7,26 +7,47 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{% static 'css/subsistema.css' %}">
+    <style>
+        .p1 {
+            background-color: gray;
+            float: left;
+            width: 20%;
+        }
+        .p{
+            background-color: gray;
+            text-align: center;
+            border-style: solid;
+            border-width: 2px;
+        }
+        .page-header{
+            color:white;
+            background-color: #f1f1f1;
+            padding: 20px;
+            text-align: center;
+        }
+        .page-header a{
+            color: white;
+            text-align: center;
+        }
+
+
+    </style>
 </head>
 <body>
-<div class="page-header">
-    <h1>Inovetech</h1>
+<div class="page-header" style="background-color: DodgerBlue;color:white;">
+    <h1>Somartech GRC - Gerenciamento de Riscos e Incertezas na Construção</h1>
     {% if user.is_authenticated %}
-    <p class="top-menu">Hello {{ user.username }}
+    <p class="top-menu">Hello {{ user.first_name }}
         <small>(<a href="{% url 'logout' %}">Log out</a>)</small>
     </p>
-    {% else %}
-    <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
     {% endif %}
 </div>
-<div class="content container">
-    <div class="row">
-        <div class="col-md-8">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </div>
+<div class="content container" style="min-height:400px;">
+    {% block content %}
+    {% endblock %}
 </div>
+<footer>
+    <p class="p">INOVETECH - ENGENHARIA E INOVAÇÃO LTDA - Sistema GRC versão 1.0</p>
+</footer>
 </body>
 </html>

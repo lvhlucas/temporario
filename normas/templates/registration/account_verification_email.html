@@ -1,0 +1,7 @@
+{% autoescape off %}
+
+Um novo funcionario tentou se registrar no programa Inovetech sobre sua empresa/gerencia, para confirmar os dados entre
+no link a seguir.
+
+http://{{ domain }}{% url 'valida_usuario_gerente' uidb64=uid token=token %}
+{% endautoescape %}

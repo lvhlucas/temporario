@@ -15,13 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls import url
 from django.contrib.auth import views as auth_views
-from normas.views import home
+from normas.views import home, signup, activate, valida_usuario_gerente, change_password, conectado
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('normas/', include('normas.urls')),
+    path('conectado/', include('normas.urls')),
+    path('cadastro/', signup, name='signup'),
     path('login/', auth_views.login, name='login'),
     path('logout/', auth_views.logout, {'next_page': '/login/'}, name='logout'),
     path('', home, name='home'),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate,
+        name='activate'),
+    url(r'^valida/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', valida_usuario_gerente,
+        name='valida_usuario_gerente'),
+    url(r'^password/$', change_password, name='change_password'),
 ]

@@ -4,5 +4,7 @@ from . import views
 app_name = 'normas'
 urlpatterns = [
     path('busca/', views.exibe_normas, name='exibe_normas'),
-    path('conectado/', views.conectado, name='conectado'),
+    path('', views.conectado, name='conectado'),
+    path('empresa/', views.empresa, name='empresa'),
+    path('empresa/estrutura', views.estrutura, name='estrutura'),
 ]

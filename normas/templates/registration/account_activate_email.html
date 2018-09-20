@@ -1,0 +1,6 @@
+{% autoescape off %}
+
+Um novo funcionario foi cadastrado e validado pelo gerente, clique no link a seguir para validar o acesso ao funcionario.
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

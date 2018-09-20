@@ -1,0 +1,21 @@
+{% extends 'normasPDF/base.html' %}
+
+{% block content %}
+<h2>Nome do funcionário:</h2>
+<p>{{usuario.first_name}} {{usuario.last_name}}</p>
+<h2>Email do funcionário:</h2>
+<p>{{usuario.email}}</p>
+<h2>Função do funcionário:</h2>
+<p>exemplo função</p>
+<h2>Atividade do funcionário:</h2>
+<p>exemplo Atividade</p>
+<form method="POST" class="post-form">
+    {% csrf_token %}
+    <input type="radio" name="valida" value="invalido" checked> Invalido<br>
+    <input type="radio" name="valida" value="valido"> Valido<br>
+    Comentário:<br>
+    <input type="text" name="comentario" size="40"><br>
+    <input type="submit" value="Confirmar" name="submit" class="btn btn-default">
+    <input type="hidden" name="next" value="{{ next }}">
+</form>
+{% endblock %}

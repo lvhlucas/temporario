@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class TitulosNorma(models.Model):
@@ -17,12 +18,18 @@ class NormaPdf(models.Model):
     conteudo = models.TextField(max_length=500)
 
     def __str__(self):
-        return str(self.documento)+" - "+str(self.tituloFK)+" - "+self.norma1+"."+self.norma2+"."+self.norma3+" - "+\
+        return str(self.documento) + " - " + str(
+            self.tituloFK) + " - " + self.norma1 + "." + self.norma2 + "." + self.norma3 + " - " + \
                str(self.conteudo)
 
 
-class empresa(models.Model):
+class Empresa(models.Model):
     nome = models.CharField(max_length=50)
-    codigo = models.IntegerField(default=0)
+    codigo = models.IntegerField(default=0, unique=True)
+    gerentePK = models.IntegerField(default=0)
 
 
+class Funcionario(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    email_confirmed = models.BooleanField(default=False)

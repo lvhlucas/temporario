@@ -2,9 +2,18 @@
 
 
 {% block content %}
-
-<a href="{% url 'normas:exibe_normas' %}" class="btn btn-default">Buscar normas</a>
-<a  class="btn btn-default">Empresas</a>
-<a  class="btn btn-default">Funcionáios</a>
-<a  class="btn btn-default">Treinamentos</a>
+<h1>f1.01</h1>
+<div style="background-color: gray;text-align: center;padding: 5px;">
+    <a href="{% url 'normas:exibe_normas' %}" class="btn btn-default">Normas e Procedimentos</a>
+    <a href="{% url 'normas:empresa' %}" class="btn btn-default">Empresas</a>
+    <a class="btn btn-default">EO - Estrutura Organizacional</a>
+    <a class="btn btn-default">Atvidades</a>
+    <a class="btn btn-default">Especialistas</a>
+    <a class="btn btn-default">Técnicas de Análise de riscos</a>
+    <a class="btn btn-default">Treinamento GR</a>
+</div>
+<div style="margin: 5px;">
+    {% block conectado %}
+    {% endblock %}
+</div>
 {% endblock %}

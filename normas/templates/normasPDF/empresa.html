@@ -1,0 +1,35 @@
+{% extends "normasPDF/conectado.html" %}
+
+
+{% block conectado %}
+<style>
+    .a {
+    margin-bottom: 1px;
+    width: 100%;
+    }
+    .b{
+    float: left;
+    width: 15%;
+    background-color: gray;
+    padding: 5px;
+    height:500px;
+    }
+</style>
+<h1>f1.02</h1>
+<div>
+    <div class="b">
+        <a class="btn btn-default a">Edificios</a>
+        <a href="{% url 'normas:estrutura' %}" class="btn btn-default a">EO - Estrut. Organiz.</a>
+        <a class="btn btn-default a">Equipes de Trabalho</a>
+        <a class="btn btn-default a">Funcionários</a>
+        <a class="btn btn-default a">Contratos</a>
+        <a class="btn btn-default a">Projetos</a>
+        <a class="btn btn-default a">Estudos de riscos</a>
+        <a class="btn btn-default a">Estratégias de SMS</a>
+    </div>
+    <div style="float: left;width: 75%;background-color: gray;margin-left: 10px;">
+        {% block empresa %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
