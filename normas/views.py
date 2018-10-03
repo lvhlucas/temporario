@@ -25,11 +25,11 @@ def nivel_1(user):
 
 
 def nivel_2(user):
-    return user.groups.filter(name='nivel1').exists()
+    return user.groups.filter(name='nivel2').exists()
 
 
 def nivel_3(user):
-    return user.groups.filter(name='nivel1').exists()
+    return user.groups.filter(name='nivel3').exists()
 
 
 def nivel_logado(user):  # funcionario cadastrado
@@ -37,11 +37,11 @@ def nivel_logado(user):  # funcionario cadastrado
 
 
 def nive2_logado(user):  # gerente cadastrado
-    return is_authenticated(user) and nivel_1(user)
+    return is_authenticated(user) and nivel_2(user)
 
 
 def nive3_logado(user):  # adm do sistema
-    return is_authenticated(user) and nivel_1(user)
+    return is_authenticated(user) and nivel_3(user)
 
 
 def home(request):
@@ -64,13 +64,59 @@ def estrutura(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
+def estrutura_diretoria(request):
+    # buscar no bd todas as diretorias da empresa selecionada que botão for clicado
+    diretorias = {'diretoria1': ['diretoria X', 'diretor X'], 'diretoria2': ['diretoria Y', 'diretor Y']}
+
+    if request.is_ajax():
+        print("ajax")
+        print(request.POST.get('data', None))
+        diretorias['diretorias3'] = ['diretoria Z', 'diretor Z']
+        template = 'normasPDF/tabela.html'
+    else:
+        print("normal")
+        template = 'normasPDF/estrutura_diretoria.html'
+    return render(request, template, {'diretorias': diretorias})
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
 def exibe_normas(request):
     norma = NormaPdf.objects.select_related('tituloFK').all().order_by('documento', 'tituloFK', 'norma1', 'norma2',
                                                                        'norma3')
-    documento = [1,3,4]  # buscar o nome de todos os documentos
+    documento = [1, 3, 4]  # buscar o nome de todos os documentos
 
     return render(request, 'normasPDF/normasPDF.html', {'norma': norma, 'titulo': TitulosNorma.objects.all(),
                                                         'documento': documento})
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def estrutura_gerencia(request):
+    return render(request, 'normasPDF/estrutura_gerencia.html')
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def estrutura_divisao(request):
+    return render(request, 'normasPDF/estrutura_divisao.html')
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def estrutura_areatrab(request):
+    return render(request, 'normasPDF/estrutura_areatrab.html')
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def estrutura_especializacao(request):
+    return render(request, 'normasPDF/estrutura_especializacao.html')
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def estrutura_funcao(request):
+    return render(request, 'normasPDF/estrutura_funcao.html')
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def estrutura_empresa(request):
+    return render(request, 'normasPDF/estrutura_empresa.html')
 
 
 def signup(request):
@@ -137,7 +183,6 @@ def valida_usuario_gerente(request, uidb64, token):
 
     if user is not None and account_activation_token.check_token(user, token):
         if request.method == 'POST':
-
             current_site = get_current_site(request)
             origem = "inovetech@gmail.com"
             destino = "adm@inotech.com"  # email adm do sistema

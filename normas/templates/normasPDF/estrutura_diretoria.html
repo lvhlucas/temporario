@@ -1,0 +1,130 @@
+{% extends "normasPDF/estrutura.html" %}
+
+
+{% block estrutura %}
+<style>
+    table#t01 ,table#t01 th,table#t01 td {
+        border: 1px solid black;
+    }
+    td{
+       padding: 2px;
+    }
+    .th01{
+        width: 300px;
+    }
+    .column{
+        float: left;
+    }
+    .pane{
+        display: inline-block;
+        overflow-y: scroll;
+        max-height:400px;
+    }
+
+
+
+
+
+
+</style>
+<h1>f1.04</h1>
+<div style="padding: 5px;">
+    Cógido da Empresa:
+    <input type="text" id="cod_empresa" name="cod_empresa">
+    <button id="cod_empresa_b">Completar</button>
+    <br>
+    Nome empresa 1: <input type="text" disabled id="Nome1"><br>
+    Nome empresa 2: <input type="text" disabled id="Nome2"><br>
+    Diretoria:
+    <button id="nova_diretoria"> Nova Diretoria</button>
+    <div class="pane" id="berefreshed">
+        {% include "normasPDF/tabela.html" %}
+    </div>
+    <div id="infoDiretoria" style="display : none; background-color: white; padding: 5px;margin: 10px;">
+        <table style="width: 100%">
+            <tr>
+                <th>N° REG</th>
+                <th>N° REF</th>
+                <th>COD</th>
+                <th style="width: 500px;">Titulo de Diretoria</th>
+                <th>Titulo</th>
+            </tr>
+            <tr>
+                <td id="reg"><input disabled type="text" style="width:70px"></td>
+                <td id="ref"><input disabled type="text" style="width:70px"></td>
+                <td id="cod"><input disabled type="text" style="width:70px"></td>
+                <td id="titulo1"><input disabled type="text" style="width:100%"></td>
+                <td id="titulo2"><input disabled type="text" style="width:140px"></td>
+            </tr>
+        </table>
+        COD DE ESTRU. ORG. : <input type="text" style="width:80%;">
+        <div style="margin: 2px;padding: 2px;" class="row">
+            <div class="column">
+                Diretor Resp.:<br>
+                <input type="text" id="resp_diretor" style="width:250px;"><br>
+                Secret.:<br>
+                <input type="text" id="resp_secret" style="width:250px;">
+            </div>
+            <div class="column" style="margin-left:5px;">
+                Nome de Trata:
+                <button style="width:10px;height: 10px;" onclick="dosomething()"></button>
+                <br>
+                <input type="text" id="trata1" style="width:200px;"><br>
+                Nome de Trata:
+                <button style="width:10px;height: 10px;" onclick="dosomething()"></button>
+                <br>
+                <input type="text" id="trata2" style="width:200px;">
+            </div>
+            <div class="column" style="margin-left:5px;">
+                COD:<br>
+                <input type="text" id="cod1" style="width:70px;"><br>
+                COD:<br>
+                <input type="text" id="cod2" style="width:70px;">
+            </div>
+            <div class="column" style="margin-left:5px;">
+                <br>
+                <button onclick="dosemething()">Contato</button>
+                <br>
+                <br>
+                <button onclick="dosemething()">Contato</button>
+            </div>
+            <div class="column" style="margin-left:20px;">
+                Organogr.:
+                <div style="background-color:#aaa;padding:5px;">
+                    <button style="height:10px;width:10px;"></button>
+                    <button style="height:10px;width:10px;"></button>
+                </div>
+            </div>
+        </div>
+        Organograma:
+        <img src="">
+    </div>
+
+</div>
+{% block inner_js %}
+<script type="text/javascript">
+
+var teste;
+    $(document).ready()
+    function informacaoDiretoria(){
+        $("#infoDiretoria").show();
+    }
+    $("#cod_empresa_b").on("click", function () {
+        data = $("#cod_empresa").val();
+        console.log(data);
+        $("#berefreshed").load("/conectado/empresa/estrutura/diretoria", function(responseTxt, statusTxt, xhr){
+        if(statusTxt == "success"){
+            $("#Nome1").val("Nome 1");
+            $("#Nome2").val("Nome 2");
+        }
+    });
+    })
+
+
+
+
+
+</script>
+{% endblock inner_js %}
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% if diretorias %}
+<table id="t01">
+    <tr>
+        <th class="th01">Cabeçario 1</th>
+        <th class="th01">Cabeçario 1</th>
+        <th> Ações</th>
+    </tr>
+    {% for i in diretorias.values %}
+    <tr>
+        {% for campo in i %}
+        <td>{{campo}}</td>
+        {% endfor %}
+        <td>
+            <button onclick="informacaoDiretoria()">Mais Info.</button>
+            <button onclick="excluioDiretoria()">Excluir</button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<ul>Não há diretorias cadastradas nessa empresa.</ul>
+{% endif %}

@@ -4,12 +4,13 @@
 {% block empresa %}
 <h1>f1.03</h1>
 <div style="background-color: DarkGray;padding: 2px;">
-    <a class="btn btn-default">Diretoria</a>
-    <a class="btn btn-default">Gerencias</a>
-    <a class="btn btn-default">Divisões</a>
-    <a class="btn btn-default">Áreas de Trabalho</a>
-    <a class="btn btn-default">Especialidades</a>
-    <a class="btn btn-default">Funções</a>
+    <a class="btn btn-default" href="{% url 'normas:estrutura_empresa' %}">Empresa </a>
+    <a class="btn btn-default" href="{% url 'normas:estrutura_diretoria' %}">Diretoria</a>
+    <a class="btn btn-default" href="{% url 'normas:estrutura_gerencia' %}">Gerencias</a>
+    <a class="btn btn-default" href="{% url 'normas:estrutura_divisao' %}">Divisões</a>
+    <a class="btn btn-default" href="{% url 'normas:estrutura_areatrab' %}">Áreas de Trabalho</a>
+    <a class="btn btn-default" href="{% url 'normas:estrutura_especializacao' %}">Especialidades</a>
+    <a class="btn btn-default" href="{% url 'normas:estrutura_funcao' %}">Funções</a>
 </div>
 <div style="min-height: 300px;">
     {% block estrutura %}

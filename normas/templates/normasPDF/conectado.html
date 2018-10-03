@@ -2,18 +2,29 @@
 
 
 {% block content %}
+<style>
+    .btn.active, .btn:hover {
+        background-color: Blue;
+        color: white;
+    }
+    .btn{
+        background-color: White;
+        color: black;
+    }
+</style>
 <h1>f1.01</h1>
-<div style="background-color: gray;text-align: center;padding: 5px;">
-    <a href="{% url 'normas:exibe_normas' %}" class="btn btn-default">Normas e Procedimentos</a>
-    <a href="{% url 'normas:empresa' %}" class="btn btn-default">Empresas</a>
-    <a class="btn btn-default">EO - Estrutura Organizacional</a>
-    <a class="btn btn-default">Atvidades</a>
-    <a class="btn btn-default">Especialistas</a>
-    <a class="btn btn-default">Técnicas de Análise de riscos</a>
-    <a class="btn btn-default">Treinamento GR</a>
+<div style="background-color: gray;text-align: center;padding: 5px;" id="id_2">
+    <a href="{% url 'normas:exibe_normas' %}" class="btn ">Normas e Procedimentos</a>
+    <a href="{% url 'normas:empresa' %}" class="btn ">Empresas</a>
+    <a class="btn ">EO - Estrutura Organizacional</a>
+    <a class="btn ">Atvidades</a>
+    <a class="btn ">Especialistas</a>
+    <a class="btn ">Técnicas de Análise de riscos</a>
+    <a class="btn ">Treinamento GR</a>
 </div>
 <div style="margin: 5px;">
     {% block conectado %}
     {% endblock %}
 </div>
+
 {% endblock %}
