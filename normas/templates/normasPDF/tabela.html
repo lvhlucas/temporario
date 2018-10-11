@@ -1,22 +1,23 @@
-{% if diretorias %}
+{% if setor %}
 <table id="t01">
     <tr>
-        <th class="th01">Cabeçario 1</th>
-        <th class="th01">Cabeçario 1</th>
+        <th>ID</th>
+        <th class="th01">Nome</th>
+        <th class="th01">Responsavel</th>
         <th> Ações</th>
     </tr>
-    {% for i in diretorias.values %}
-    <tr>
+    {% for i in setor %}
+    <tr id="row_table#{{i.0}}">
         {% for campo in i %}
         <td>{{campo}}</td>
         {% endfor %}
         <td>
-            <button onclick="informacaoDiretoria()">Mais Info.</button>
-            <button onclick="excluioDiretoria()">Excluir</button>
+            <button onclick="informacaoDiretoria('{{i.0}}')">Mais Info.</button>
+            <button onclick="excluioDiretoria('{{i.0}}')">Excluir</button>
         </td>
     </tr>
     {% endfor %}
 </table>
 {% else %}
-<ul>Não há diretorias cadastradas nessa empresa.</ul>
+<ul>Não há {{tipo}} cadastradas nessa empresa.</ul>
 {% endif %}

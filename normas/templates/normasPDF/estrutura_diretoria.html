@@ -22,12 +22,8 @@
     }
 
 
-
-
-
-
 </style>
-<h1>f1.04</h1>
+<h1>f1.032</h1>
 <div style="padding: 5px;">
     Cógido da Empresa:
     <input type="text" id="cod_empresa" name="cod_empresa">
@@ -38,7 +34,6 @@
     Diretoria:
     <button id="nova_diretoria"> Nova Diretoria</button>
     <div class="pane" id="berefreshed">
-        {% include "normasPDF/tabela.html" %}
     </div>
     <div id="infoDiretoria" style="display : none; background-color: white; padding: 5px;margin: 10px;">
         <table style="width: 100%">
@@ -97,32 +92,31 @@
             </div>
         </div>
         Organograma:
-        <img src="">
+        <img src="" id="organograma">
     </div>
 
 </div>
 {% block inner_js %}
 <script type="text/javascript">
-
-var teste;
     $(document).ready()
-    function informacaoDiretoria(){
-        $("#infoDiretoria").show();
+    function excluioDiretoria(id){
+        $("'#row_table#",id,"'").hide();
+
+    }
+    function informacaoDiretoria(id){
+        $.get("/conectado/get_info/diretoria", {id: id}, function(resultado){
+            <!--pegar as informações e colocar na tabela-->
+            $("#infoDiretoria").show();
+        });
     }
     $("#cod_empresa_b").on("click", function () {
         data = $("#cod_empresa").val();
-        console.log(data);
-        $("#berefreshed").load("/conectado/empresa/estrutura/diretoria", function(responseTxt, statusTxt, xhr){
-        if(statusTxt == "success"){
-            $("#Nome1").val("Nome 1");
-            $("#Nome2").val("Nome 2");
-        }
-    });
+        $.get("/conectado/empresa/estrutura/diretoria",{cod_empresa:data},function(resultado){
+            $("#Nome1").val(resultado.nome_empresa[0]);
+            $("#Nome2").val(resultado.nome_empresa[1]);
+        });
+        $("#berefreshed").load("/conectado/empresa/estrutura/diretoria",{cod_empresa:data});
     })
-
-
-
-
 
 </script>
 {% endblock inner_js %}

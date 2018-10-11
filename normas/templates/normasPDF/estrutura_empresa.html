@@ -1,19 +1,8 @@
-{% extends "normasPDF/empresa.html" %}
+{% extends "normasPDF/estrutura.html" %}
 
 
-{% block empresa %}
-<h1>f1.03</h1>
-<div style="background-color: DarkGray;padding: 2px;">
-    <a class="btn btn-default" href="{% url 'normas:diretoria' %}">Diretoria</a>
-    <a class="btn btn-default">Gerencias</a>
-    <a class="btn btn-default">Divisões</a>
-    <a class="btn btn-default">Áreas de Trabalho</a>
-    <a class="btn btn-default">Especialidades</a>
-    <a class="btn btn-default">Funções</a>
-</div>
-<div style="min-height: 300px;">
-    {% block estrutura %}
-    {% endblock %}
-</div>
+{% block estrutura %}
+<h1>f1.031</h1>
+
 
 {% endblock %}

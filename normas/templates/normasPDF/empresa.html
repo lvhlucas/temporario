@@ -14,12 +14,18 @@
     padding: 5px;
     height:500px;
     }
+    .largura{
+        min-width:200px;
+    }
+
+
 </style>
 <h1>f1.02</h1>
 <div>
     <div class="b">
         <a class="btn btn-default a">Edificios</a>
-        <a href="{% url 'normas:estrutura' %}" class="btn btn-default a" style="margin-bottom: 10px;">EO - Estrut. Organiz.</a>
+        <a href="{% url 'normas:estrutura' %}" class="btn btn-default a" style="margin-bottom: 10px;">EO - Estrut.
+            Organiz.</a>
         <a class="btn btn-default a">Equipes de Trabalho</a>
         <a class="btn btn-default a" style="margin-bottom: 10px;">Funcionários</a>
         <a class="btn btn-default a">Contratos</a>
@@ -27,11 +33,88 @@
         <a class="btn btn-default a">Estudos de riscos</a>
         <a class="btn btn-default a">Estratégias de SMS</a>
     </div>
-    <div style="float: left;width: 75%;background-color: gray;margin-left: 10px;">
-        {% block empresa %}
-        {% endblock %}
+    <div style="float: left; width: 75%; ">
+        <div style="background-color: gray;margin-left: 10px; padding: 10px;">
+            Empresa:
+            <select id="id_empresa" class="largura">
+                <option disabled selected></option>
+                {% for empresa in empresas.nome_empresa %}
+                <option value="{{empresa.1}}">{{empresa.0}}</option>
+                {% endfor %}
+            </select>
+            <input id="id_cod_empresa" disabled style="width:50px;"><br>
+            Diretoria:
+            <select id="id_diretoria" class="largura" disabled></select><br>
+            Gerencia:
+            <select id="id_gerencia" class="largura" disabled></select><br>
+            Divisão:
+            <select id="id_divisao" class="largura" disabled></select><br>
+            Área de Trabalho:
+            <select id="id_areatrab" class="largura" disabled></select><br>
+            Especialidades:
+            <select id="id_especialidade" class="largura" disabled></select>
+        </div>
+        <div style=";background-color: gray;margin-left: 10px;">
+            {% block empresa %}
+            {% endblock %}
+        </div>
     </div>
 </div>
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready()
+    $("#id_empresa").change(function () {
+        $("#id_cod_empresa").val($("#id_empresa option:selected").val());
+        $("#id_diretoria").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
+        $("#id_gerencia").empty().prop("disabled", true);
+        $("#id_divisao").empty().prop("disabled", true);
+        $("#id_areatrab").empty().prop("disabled", true);
+        $("#id_especialidade").empty().prop("disabled", true);
+        $.get("/conectado/get_info/diretoria",{data:$("#id_empresa option:selected").val()},function(resultado){
+            $.each(resultado.diretorias, function(index, value){
+                $("#id_diretoria").append(new Option(value[1], value));
+            });
+        });
+    });
+    $("#id_diretoria").change(function () {
+        $("#id_gerencia").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
+        $("#id_divisao").empty().prop("disabled", true);
+        $("#id_areatrab").empty().prop("disabled", true);
+        $("#id_especialidade").empty().prop("disabled", true);
+        $.get("/conectado/get_info/gerencia",{data:$("#id_diretoria option:selected").val()},function(resultado){
+            $.each(resultado.gerencias, function(index, value){
+                $("#id_gerencia").append(new Option(value[1]));
+            });
+        });
+    });
+    $("#id_gerencia").change(function () {
+        $("#id_divisao").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
+        $("#id_areatrab").empty().prop("disabled", true);
+        $("#id_especialidade").empty().prop("disabled", true);
+        $.get("/conectado/get_info/divisao",{data:$("#id_gerencia option:selected").val()},function(resultado){
+            $.each(resultado.divisoes, function(index, value){
+                $("#id_divisao").append(new Option(value[1]));
+            });
+        });
+    });
+    $("#id_divisao").change(function () {
+        $("#id_areatrab").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
+        $("#id_especialidade").empty().prop("disabled", true);
+        $.get("/conectado/get_info/areatrab",{data:$("#id_divisao option:selected").val()},function(resultado){
+            $.each(resultado.areatrabalhos, function(index, value){
+                $("#id_areatrab").append(new Option(value[1]));
+            });
+        });
+    });
+    $("#id_areatrab").change(function () {
+        $("#id_especialidade").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
+        $.get("/conectado/get_info/especialidade",{data:$("#id_areatrab option:selected").val()},function(resultado){
+            $.each(resultado.especialidades, function(index, value){
+                $("#id_especialidades").append(new Option(value[1]));
+            });
+        });
+    });
 
-
+</script>
+{% endblock inner_js %}
 {% endblock %}

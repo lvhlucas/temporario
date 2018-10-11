@@ -3,7 +3,7 @@
 
 {% block estrutura %}
 <style>
-    table#t01 ,table#t01 th,table#t01 td {
+table#t01 ,table#t01 th,table#t01 td {
         border: 1px solid black;
     }
     td{
@@ -15,47 +15,36 @@
     .column{
         float: left;
     }
-
-
+    .pane{
+        display: inline-block;
+        overflow-y: scroll;
+        max-height:400px;
+    }
 </style>
-<h1>f1.04</h1>
+<h1>f1.033</h1>
 <div style="padding: 5px;">
     Cógido da Empresa:
-    <input type="text">
-    <button onclick="">Completar</button>
+    <input type="text" id="cod_empresa" name="cod_empresa">
+    <button id="cod_empresa_b">Completar</button>
     <br>
     Nome empresa 1: <input type="text" disabled id="Nome1"><br>
     Nome empresa 2: <input type="text" disabled id="Nome2"><br>
     Diretoria:
-    {% if diretorias %}
-    <table id="t01">
-        <tr>
-            <th class="th01">Cabeçario 1</th>
-            <th class="th01">Cabeçario 1</th>
-            <th> Ações</th>
-        </tr>
-            {% for i in diretorias %}
-            <tr>
-                <td>{{i.campo1}}</td>
-                <td>{{i.campo2}}</td>
-                <td>
-                    <button onclick="informacaoDiretoria()">Mais Info.</button>
-                    <button onclick="excluioDiretoria({{i.id}})">Excluir</button>
-                </td>
-            </tr>
-            {% endfor %}
-    </table>
-    {% else %}
-        <ul>Não há diretorias cadastradas nessa empresa.</ul>
-    {% endif %}
+    <select id="gerencia">
+        <option disabled selected></option>
+    </select>
+
+    <div class="pane" id="berefreshed">
+    </div>
     <div id="infoDiretoria" style="display : none; background-color: white; padding: 5px;margin: 10px;">
         <table style="width: 100%">
             <tr>
                 <th>N° REG</th>
                 <th>N° REF</th>
                 <th>COD</th>
-                <th style="width: 500px;">Titulo de Diretoria</th>
-                <th>Titulo</th>
+                <th style="width: 500px;">Titulo de Gerencia</th>
+                <th>Gerencia</th>
+                <th>Nivel</th>
             </tr>
             <tr>
                 <td id="reg"><input disabled type="text" style="width:70px"></td>
@@ -63,6 +52,7 @@
                 <td id="cod"><input disabled type="text" style="width:70px"></td>
                 <td id="titulo1"><input disabled type="text" style="width:100%"></td>
                 <td id="titulo2"><input disabled type="text" style="width:140px"></td>
+                <td id="nivel"><input disabled type="text" style="width:70px"></td>
             </tr>
         </table>
         COD DE ESTRU. ORG. : <input type="text" style="width:80%;">
@@ -105,24 +95,28 @@
             </div>
         </div>
         Organograma:
-        <img src="">
+        <img src="" id="organograma">
     </div>
-
 </div>
 {% block inner_js %}
 <script type="text/javascript">
     $(document).ready()
-    function informacaoDiretoria(){
-        var x = document.getElementById("infoDiretoria");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        }
-    }
-    function excluioDiretoria(id){
-    }
-
+    $("#cod_empresa_b").on("click", function () {
+        data = $("#cod_empresa").val();
+        $.get("/conectado/empresa/estrutura/gerencia",{cod_empresa:data},function(resultado){
+            $("#Nome1").val(resultado.nome_empresa[0]);
+            $("#Nome2").val(resultado.nome_empresa[1]);
+            $.each(resultado.diretorias, function(index, value){
+                $("#gerencia").append(new Option(value[0], "value"));
+            });
+        });
+    });
+    $("#gerencia").change(function(){
+        $("#berefreshed").load("/conectado/empresa/estrutura/gerencia",
+            {cod_empresa:$("#cod_empresa_b").val(),cod_diretoria: $("#gerencia option:selected").val()}
+        );
+    });
 
 </script>
 {% endblock inner_js %}
-
 {% endblock %}
