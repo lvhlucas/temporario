@@ -1,16 +1,17 @@
-{% extends "normasPDF/estrutura.html" %}
-
-
-{% block estrutura %}
-<style>
-
-</style>
-<h1>f1.037</h1>
-
-{% block inner_js %}
-<script type="text/javascript">
-
-</script>
-{% endblock inner_js %}
-
-{% endblock %}
+<p>estrutura_funcao</p>
+<div>
+    <div style="border: 1px solid black;text-align:center;padding:10px;">
+        <button id="button_cadastro">Cadastro</button>
+        <button id="button_organograma">Organograma</button>
+        <button disabled>Atribuição</button>
+        <button disabled>Contato</button>
+        <button id="button_lista">Lista</button>
+    </div>
+    <div style="text-align:center;margin-top:10px;">
+        <select>
+            {% for i in setor.diretorias %}
+            <option value="{{i.0}}">{{i.1}}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>

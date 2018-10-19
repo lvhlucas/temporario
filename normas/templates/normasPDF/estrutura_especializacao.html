@@ -1,16 +1,90 @@
-{% extends "normasPDF/estrutura.html" %}
 
-
-{% block estrutura %}
 <style>
-
+    .inline-block{
+        display:inline-block;
+    }
 </style>
-<h1>f1.036</h1>
+<p>estrtuura_especializacao</p>
+<div>
+    <div style="border: 1px solid black;text-align:center;padding:10px;">
+        <button id="button_cadastro">Cadastro</button>
+        <button id="button_organograma">Organograma</button>
+        <button disabled>Atribuição</button>
+        <button disabled>Contato</button>
+        <button id="button_lista">Lista</button>
+    </div>
+    <div style="text-align:center;margin-top:10px;">
+        Especialidades:
+        <select id="select_setor">
+            <option disabled selected></option>
+            {% for i in setor.especialidades %}
+            <option value="{{i.0}}">{{i.1}}</option>
+            {% endfor %}
+        </select>
+        <input type="text" id="input_setor">
+    </div>
+    <div class="pane" style="display : none;" id="tabela">
+        falta colocar botões para a ordenação dos campos
+        {% if setor %}
+        <table id="t01">
+            <tr>
+                <th>REG</th>
+                <th>Grupo</th>
+                <th>Espec</th>
+                <th>Gru</th>
+                <th>Titulo da Especialidade</th>
+            </tr>
+            {% for i in setor.especialidades %}
+            <tr id="row_table#{{i.0}}">
+                {% for campo in i %}
+                <td>{{campo}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <ul>Não há {{tipo}} cadastradas nessa empresa.</ul>
+        {% endif %}
+    </div>
+    <div id="infoSetor" style="display : hide;padding: 10px;margin: 10px;border: 1px solid black;">
+        <h2>Cadastro de Especialidades</h2>
+        <div style="border: 1px solid black;padding:10px;">
+            <div >
+                <p class="inline-block">Grupo de Especialidades</p>
+                <div style="float:right; style=background-color: ;" >
+                    <button>Novo</button>
+                    <button>Salvar</button>
+                    <button>Excluir</button>
+                </div>
+            </div>
+            <input type="text" style="width:50px;">
+            <input type="text" style="width:50px;">
+            <input type="text" style="width:50px;">
+            <select  style="display:inline;">
+                <option selected disabled></option>
+            </select>
+        </div>
 
+    </div>
+</div>
 {% block inner_js %}
 <script type="text/javascript">
+    $(document).ready(function(){
+    $("#button_organograma").click(function(){
+        $("#organograma").toggle();
+        <!-- pegar imagem e coloca no $("#organograma_imagem")-->
+    });
+    $("#button_lista").click(function(){
+       $("#tabela").toggle();
+    });
+    $("#button_cadastro").click(function(){
+       $("#infoSetor").toggle();
+    });
+    $("#id_areatrab").change(function(){
+        $("#estrutura_extensao").load("/conectado/empresa/estrutura/areatrab" , {data:$("#id_areatrab").val()});
+    });
+});
 
 </script>
 {% endblock inner_js %}
-
-{% endblock %}
+</div>

@@ -1,7 +1,3 @@
-{% extends "normasPDF/estrutura.html" %}
-
-
-{% block estrutura %}
 <style>
     table#t01 ,table#t01 th,table#t01 td {
         border: 1px solid black;
@@ -23,19 +19,50 @@
 
 
 </style>
-<h1>f1.032</h1>
+<p>estrutura_diretoria</p>
 <div style="padding: 5px;">
-    Cógido da Empresa:
-    <input type="text" id="cod_empresa" name="cod_empresa">
-    <button id="cod_empresa_b">Completar</button>
-    <br>
-    Nome empresa 1: <input type="text" disabled id="Nome1"><br>
-    Nome empresa 2: <input type="text" disabled id="Nome2"><br>
-    Diretoria:
-    <button id="nova_diretoria"> Nova Diretoria</button>
-    <div class="pane" id="berefreshed">
+    <div style="border: 1px solid black;text-align:center;padding:10px;">
+        <button id="button_cadastro">Cadastro</button>
+        <button id="button_organograma">Organograma</button>
+        <button disabled>Atribuição</button>
+        <button disabled>Contato</button>
+        <button id="button_lista">Lista</button>
     </div>
-    <div id="infoDiretoria" style="display : none; background-color: white; padding: 5px;margin: 10px;">
+    <div style="text-align:center;margin-top:10px;">
+        Diretoria:
+        <select id="select_setor">
+            {% for i in setor.diretorias %}
+            <option value="{{i.0}}">{{i.1}}</option>
+            {% endfor %}
+        </select>
+        <input type="text" id="input_setor">
+    </div>
+    <div class="pane" style="display : none;" id="tabela">
+        falta colocar botões para a ordenação dos campos
+        {% if setor %}
+        <table id="t01">
+            <tr>
+                <th>REG</th>
+                <th>Ger</th>
+                <th>Ger</th>
+                <th>Nivel</th>
+                <th>Titulo</th>
+                <th>Ger de Comando</th>
+            </tr>
+            {% for i in setor.diretorias %}
+            <tr id="row_table#{{i.0}}">
+                {% for campo in i %}
+                <td>{{campo}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <ul>Não há {{tipo}} cadastradas nessa empresa.</ul>
+        {% endif %}
+    </div>
+    <div id="infoSetor" style="display : none; background-color: white; padding: 5px;margin: 10px;">
+        <h2>Cadastro de Diretoria</h2>
         <table style="width: 100%">
             <tr>
                 <th>N° REG</th>
@@ -52,12 +79,15 @@
                 <td id="titulo2"><input disabled type="text" style="width:140px"></td>
             </tr>
         </table>
-        COD DE ESTRU. ORG. : <input type="text" style="width:80%;">
-        <div style="margin: 2px;padding: 2px;" class="row">
+        <div>
+            <span>COD DE ESTRU. ORG. :</span>
+            <span><input type="text" ></span>
+        </div>
+        <div style="margin: 2px;padding: 2px;border: 1px solid black;" class="row">
             <div class="column">
-                Diretor Resp.:<br>
-                <input type="text" id="resp_diretor" style="width:250px;"><br>
-                Secret.:<br>
+                Diretor Resp.:
+                <input type="text" id="resp_diretor" style="width:250px;">
+                Secret.:
                 <input type="text" id="resp_secret" style="width:250px;">
             </div>
             <div class="column" style="margin-left:5px;">
@@ -85,40 +115,44 @@
             </div>
             <div class="column" style="margin-left:20px;">
                 Organogr.:
-                <div style="background-color:#aaa;padding:5px;">
-                    <button style="height:10px;width:10px;"></button>
-                    <button style="height:10px;width:10px;"></button>
+                <div style="background-color:#aaa;padding:2px;">
+                    <button ></button>
+                    <button ></button>
                 </div>
             </div>
+            <div>
+                <span>Edificio
+                    <select>
+                        <option selected disabled></option>
+                    </select>
+                Local Ativ.:
+                <input type="text" id="local_ativo"></span>
+            </div>
         </div>
-        Organograma:
-        <img src="" id="organograma">
+        <div style="display:none;" id="organograma">
+            Organograma:
+            <img src="" id="organograma_imagem">
+        </div>
     </div>
-
 </div>
 {% block inner_js %}
 <script type="text/javascript">
-    $(document).ready()
-    function excluioDiretoria(id){
-        $("'#row_table#",id,"'").hide();
+    $(document).ready(function(){
+    $("#button_organograma").click(function(){
+        $("#organograma").toggle();
+        <!-- pegar imagem e coloca no $("#organograma_imagem")-->
+    });
+    $("#button_lista").click(function(){
+       $("#tabela").toggle();
+    });
+    $("#button_cadastro").click(function(){
+       $("#infoSetor").toggle();
+    });
+    $("#id_empresa").change(function(){
+        $("#estrutura_extensao").load("/conectado/empresa/estrutura/diretoria" , {data:$("#id_empresa").val()});
+    });
+});
 
-    }
-    function informacaoDiretoria(id){
-        $.get("/conectado/get_info/diretoria", {id: id}, function(resultado){
-            <!--pegar as informações e colocar na tabela-->
-            $("#infoDiretoria").show();
-        });
-    }
-    $("#cod_empresa_b").on("click", function () {
-        data = $("#cod_empresa").val();
-        $.get("/conectado/empresa/estrutura/diretoria",{cod_empresa:data},function(resultado){
-            $("#Nome1").val(resultado.nome_empresa[0]);
-            $("#Nome2").val(resultado.nome_empresa[1]);
-        });
-        $("#berefreshed").load("/conectado/empresa/estrutura/diretoria",{cod_empresa:data});
-    })
 
 </script>
 {% endblock inner_js %}
-
-{% endblock %}

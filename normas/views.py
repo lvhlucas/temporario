@@ -15,6 +15,7 @@ from django.template.loader import render_to_string
 from normas.tokens import account_activation_token
 from django.contrib import messages
 from django.http import JsonResponse
+import json
 
 
 def is_authenticated(user):
@@ -72,6 +73,12 @@ def exibe_normas(request):
                                                         'documento': documento})
 
 
+def get_empresas(request):
+    # buscar no bd todas as diretorias atravez do cod_empresa (request.GET.get("data"))
+    resultado = {'empresas': [['01', 'Empresa H', 'Dono H'], ['02', 'Empresa J', 'Dono J']]}
+    return JsonResponse(resultado)
+
+
 def get_diretorias(request):
     # buscar no bd todas as diretorias atravez do cod_empresa (request.GET.get("data"))
     resultado = {'diretorias': [['01', 'Diretoria A', 'Diretor A'], ['02', 'Diretoria B', 'Diretor B']]}
@@ -102,11 +109,16 @@ def get_especialidades(request):
     return JsonResponse(resultado)
 
 
-def exclui_diretoria(cod_empresa, cod_diretoria):
-    # excluir no bd a diretoria passada no parametro
-    resposta = ""
+def get_funcao(request):
+    # buscar no bd todas as diretorias atravez do cod_empresa (request.GET.get("data"))
+    resultado = {'funcoes': [['21', 'X'], ['22', 'C']]}
+    return JsonResponse(resultado)
+
+
+def exclui_setor(request):
     try:
-        resposta = "Diretoria excluida com sucesso."
+        # excluir no bd a diretoria passada no parametro
+        resposta = "Setor excluido com sucesso."
     except:
         resposta = "Houve um problema na excluisão."
     return JsonResponse(resposta)
@@ -118,73 +130,66 @@ def estrutura(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def estrutura_diretoria(request):
-    diretorias = {}
-
+def estrutura_empresa(request):
     if request.is_ajax():
-        codigo_empresa = request.POST.get('cod_empresa', None)
-        # verificar se o codigo da empresa existe, se não retornar mensagem
+        codigo = request.POST.get('data', None)
+        template = 'normasPDF/estrutura_empresa.html'
+    return render(request, template,
+                  {'setor': json.loads(get_empresas(codigo).content), 'tipo': 'Empresa'})
 
-        # buscar no bd todas as diretorias atravez do codigo_empresa
-        diretorias = get_diretorias(codigo_empresa)
 
-        if request.method == "GET":
-            # buscar nome da empresa
-            nome_empresa = {'nome_empresa': ["nome_1", "nome_2"]}
-            return JsonResponse(nome_empresa)
-
-        template = 'normasPDF/tabela.html'
-    else:
+@user_passes_test(nivel_logado, login_url='/login/')
+def estrutura_diretoria(request):
+    if request.is_ajax():
+        codigo_empresa = request.POST.get('data', None)
         template = 'normasPDF/estrutura_diretoria.html'
-    return render(request, template, {'setor': diretorias, 'tipo': 'diretoria'})
+
+    return render(request, template, {'setor': json.loads(get_diretorias(codigo_empresa).content), 'tipo': 'diretoria'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_gerencia(request):
-    gerencias = {}
-
     if request.is_ajax():
-        codigo_empresa = request.POST.get('cod_empresa', None)
-        codigo_diretoria = 0
-        # verificar se o codigo da empresa existe, se não retornar mensagem
-
-        # buscar no bd todas as genrecia atravez do codigo_empresa
-        gerencias = get_gerencias(codigo_empresa, codigo_diretoria)
-
-        if request.method == "GET":
-            # buscar nome da empresa atravez do codigo_empresa
-            resposta = {'nome_empresa': ["nome_1", "nome_2"], 'diretorias': get_diretorias(codigo_empresa)}
-            return JsonResponse(resposta)
-
-        template = 'normasPDF/tabela.html'
-    else:
+        codigo_diretoria = request.POST.get('data', None)
         template = 'normasPDF/estrutura_gerencia.html'
-    return render(request, template, {'setor': gerencias, 'tipo': 'gerencia'})
+    return render(request, template,
+                  {'setor': json.loads(get_gerencias(codigo_diretoria).content), 'tipo': 'gerencia'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_divisao(request):
-    return render(request, 'normasPDF/estrutura_divisao.html')
+    if request.is_ajax():
+        codigo_diretoria = request.POST.get('data', None)
+        template = 'normasPDF/estrutura_divisao.html'
+    return render(request, template,
+                  {'setor': json.loads(get_divisoes(codigo_diretoria).content), 'tipo': 'divisões'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_areatrab(request):
-    return render(request, 'normasPDF/estrutura_areatrab.html')
+    if request.is_ajax():
+        codigo = request.POST.get('data', None)
+        template = 'normasPDF/estrutura_areatrab.html'
+    return render(request, template,
+                  {'setor': json.loads(get_areatrabalhos(codigo).content), 'tipo': 'Área de trabalhos'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_especializacao(request):
-    return render(request, 'normasPDF/estrutura_especializacao.html')
+    if request.is_ajax():
+        codigo = request.POST.get('data', None)
+        template = 'normasPDF/estrutura_especializacao.html'
+    return render(request, template,
+                  {'setor': json.loads(get_especialidades(codigo).content), 'tipo': 'especialidades'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_funcao(request):
-    return render(request, 'normasPDF/estrutura_funcao.html')
-
-
-@user_passes_test(nivel_logado, login_url='/login/')
-def estrutura_empresa(request):
-    return render(request, 'normasPDF/estrutura_empresa.html')
+    if request.is_ajax():
+        codigo = request.POST.get('data', None)
+        template = 'normasPDF/estrutura_funcao.html'
+    return render(request, template,
+                  {'setor': json.loads(get_funcao(codigo).content), 'tipo': 'Funções'})
 
 
 def signup(request):

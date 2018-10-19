@@ -1,7 +1,4 @@
-{% extends "normasPDF/estrutura.html" %}
 
-
-{% block estrutura %}
 <style>
 table#t01 ,table#t01 th,table#t01 td {
         border: 1px solid black;
@@ -21,22 +18,46 @@ table#t01 ,table#t01 th,table#t01 td {
         max-height:400px;
     }
 </style>
-<h1>f1.033</h1>
+<p>estrutura_gerencia</p>
 <div style="padding: 5px;">
-    Cógido da Empresa:
-    <input type="text" id="cod_empresa" name="cod_empresa">
-    <button id="cod_empresa_b">Completar</button>
-    <br>
-    Nome empresa 1: <input type="text" disabled id="Nome1"><br>
-    Nome empresa 2: <input type="text" disabled id="Nome2"><br>
-    Diretoria:
-    <select id="gerencia">
-        <option disabled selected></option>
-    </select>
-
-    <div class="pane" id="berefreshed">
+    <div style="border: 1px solid black;text-align:center;padding:10px;">
+        <button id="button_cadastro">Cadastro</button>
+        <button id="button_organograma">Organograma</button>
+        <button disabled>Atribuição</button>
+        <button disabled>Contato</button>
+        <button id="button_lista">Lista</button>
     </div>
-    <div id="infoDiretoria" style="display : none; background-color: white; padding: 5px;margin: 10px;">
+    <div style="text-align:center;margin-top:10px;">
+        Gerencia:
+        <select id="select_setor">
+            {% for i in setor.gerencias %}
+            <option value="{{i.0}}">{{i.1}}</option>
+            {% endfor %}
+        </select>
+        <input id="input_setor" type="text">
+    </div>
+    <div class="pane" id="tabela" style="display:none;">
+        falta colocar botões para a ordenação dos campos
+        {% if setor %}
+        <table id="t01">
+            <tr>
+                <th>ID</th>
+                <th class="th01">Nome</th>
+                <th class="th01">Responsavel</th>
+            </tr>
+            {% for i in setor.gerencias %}
+            <tr id="row_table#{{i.0}}">
+                {% for campo in i %}
+                <td>{{campo}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <ul>Não há {{tipo}} cadastradas nessa empresa.</ul>
+        {% endif %}
+    </div>
+    <div id="infoSetor" style="display : none; background-color: white; padding: 5px;margin: 10px;">
         <table style="width: 100%">
             <tr>
                 <th>N° REG</th>
@@ -50,8 +71,8 @@ table#t01 ,table#t01 th,table#t01 td {
                 <td id="reg"><input disabled type="text" style="width:70px"></td>
                 <td id="ref"><input disabled type="text" style="width:70px"></td>
                 <td id="cod"><input disabled type="text" style="width:70px"></td>
-                <td id="titulo1"><input disabled type="text" style="width:100%"></td>
-                <td id="titulo2"><input disabled type="text" style="width:140px"></td>
+                <td id="titulo"><input disabled type="text" style="width:100%"></td>
+                <td id="Gerencia"><input disabled type="text" style="width:140px"></td>
                 <td id="nivel"><input disabled type="text" style="width:70px"></td>
             </tr>
         </table>
@@ -94,29 +115,30 @@ table#t01 ,table#t01 th,table#t01 td {
                 </div>
             </div>
         </div>
-        Organograma:
-        <img src="" id="organograma">
+        <div style="display:none;" id="organograma">
+            Organograma:
+            <img src="" id="organograma_imagem">
+        </div>
     </div>
 </div>
 {% block inner_js %}
 <script type="text/javascript">
-    $(document).ready()
-    $("#cod_empresa_b").on("click", function () {
-        data = $("#cod_empresa").val();
-        $.get("/conectado/empresa/estrutura/gerencia",{cod_empresa:data},function(resultado){
-            $("#Nome1").val(resultado.nome_empresa[0]);
-            $("#Nome2").val(resultado.nome_empresa[1]);
-            $.each(resultado.diretorias, function(index, value){
-                $("#gerencia").append(new Option(value[0], "value"));
-            });
-        });
+    $(document).ready(function(){
+    $("#id_diretoria").change(function(){
+        console.log("estrutura_gerencia");
+        $("#estrutura_extensao").load("/conectado/empresa/estrutura/gerencia" , {data:$("#id_diretoria").val()});
     });
-    $("#gerencia").change(function(){
-        $("#berefreshed").load("/conectado/empresa/estrutura/gerencia",
-            {cod_empresa:$("#cod_empresa_b").val(),cod_diretoria: $("#gerencia option:selected").val()}
-        );
+    $("#button_organograma").click(function(){
+        $("#organograma").toggle();
+        <!-- pegar imagem e coloca no $("#organograma_imagem")-->
     });
+    $("#button_lista").click(function(){
+       $("#tabela").toggle();
+    });
+    $("#button_cadastro").click(function(){
+       $("#infoSetor").toggle();
+    });
+});
 
 </script>
 {% endblock inner_js %}
-{% endblock %}

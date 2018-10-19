@@ -20,18 +20,18 @@
 
 
 </style>
-<h1>f1.02</h1>
+<p>empresa</p>
 <div>
     <div class="b">
-        <a class="btn btn-default a">Edificios</a>
-        <a href="{% url 'normas:estrutura' %}" class="btn btn-default a" style="margin-bottom: 10px;">EO - Estrut.
+        <a class="btn btn-default a" id="edificios">Edificios</a>
+        <a class="btn btn-default a" style="margin-bottom: 10px;" id="estrutura">EO - Estrut.
             Organiz.</a>
-        <a class="btn btn-default a">Equipes de Trabalho</a>
-        <a class="btn btn-default a" style="margin-bottom: 10px;">Funcionários</a>
-        <a class="btn btn-default a">Contratos</a>
-        <a class="btn btn-default a" style="margin-bottom: 10px;">Projetos</a>
-        <a class="btn btn-default a">Estudos de riscos</a>
-        <a class="btn btn-default a">Estratégias de SMS</a>
+        <a class="btn btn-default a" id="equipes">Equipes de Trabalho</a>
+        <a class="btn btn-default a" style="margin-bottom: 10px;" id="funcionarios">Funcionários</a>
+        <a class="btn btn-default a" id="contratos">Contratos</a>
+        <a class="btn btn-default a" style="margin-bottom: 10px;" id="projetos">Projetos</a>
+        <a class="btn btn-default a" id="estudos">Estudos de riscos</a>
+        <a class="btn btn-default a" id="estrategias">Estratégias de SMS</a>
     </div>
     <div style="float: left; width: 75%; ">
         <div style="background-color: gray;margin-left: 10px; padding: 10px;">
@@ -54,15 +54,12 @@
             Especialidades:
             <select id="id_especialidade" class="largura" disabled></select>
         </div>
-        <div style=";background-color: gray;margin-left: 10px;">
-            {% block empresa %}
-            {% endblock %}
-        </div>
+        <div style=";background-color: gray;margin-left: 10px;margin-top:10px;" id="extensao"></div>
     </div>
 </div>
 {% block inner_js %}
 <script type="text/javascript">
-    $(document).ready()
+    $(document).ready(function(){
     $("#id_empresa").change(function () {
         $("#id_cod_empresa").val($("#id_empresa option:selected").val());
         $("#id_diretoria").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
@@ -114,7 +111,10 @@
             });
         });
     });
-
+    $("#estrutura").click(function(){
+        $("#extensao").load("/conectado/empresa/estrutura");
+    });
+});
 </script>
 {% endblock inner_js %}
 {% endblock %}

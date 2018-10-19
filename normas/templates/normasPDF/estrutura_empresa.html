@@ -1,8 +1,139 @@
-{% extends "normasPDF/estrutura.html" %}
+<p>estrutura_empresa</p>
 
-
-{% block estrutura %}
-<h1>f1.031</h1>
-
-
-{% endblock %}
+<div>
+    <div style="border: 1px solid black;text-align:center;padding:10px;">
+        <button id="button_cadastro">Cadastro</button>
+        <button id="button_organograma">Organograma</button>
+        <button disabled>Atribuição</button>
+        <button disabled>Contato</button>
+        <button id="button_lista">Lista</button>
+    </div>
+    <div style="text-align:center;margin-top:10px;">
+        Empresa:
+        <select id="select_setor">
+            <option disabled selected></option>
+            {% for i in setor.empresas %}
+            <option value="{{i.0}}">{{i.1}}</option>
+            {% endfor %}
+        </select>
+        <input type="text" id="input_setor">
+    </div>
+    <div class="pane" style="display : none;" id="tabela">
+        falta colocar botões para a ordenação dos campos
+        {% if setor %}
+        <table id="t01">
+            <tr>
+                <th>REG</th>
+                <th>Ger</th>
+                <th>Ger</th>
+                <th>Nivel</th>
+                <th>Titulo</th>
+                <th>Ger de Comando</th>
+            </tr>
+            {% for i in setor.divisoes %}
+            <tr id="row_table#{{i.0}}">
+                {% for campo in i %}
+                <td>{{campo}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <ul>Não há {{tipo}} cadastradas nessa empresa.</ul>
+        {% endif %}
+    </div>
+    <div id="infoSetor" style="display : none; background-color: white; padding: 5px;margin: 10px;">
+        <h2>Cadastro de Empresa</h2>
+        <table style="width: 100%">
+            <tr>
+                <th>N° REG</th>
+                <th>N° REF</th>
+                <th>COD</th>
+                <th style="width: 500px;">Titulo de Divisão</th>
+                <th>Cargo</th>
+                <th>Nivel</th>
+            </tr>
+            <tr>
+                <td id="reg"><input disabled type="text" style="width:70px"></td>
+                <td id="ref"><input disabled type="text" style="width:70px"></td>
+                <td id="cod"><input disabled type="text" style="width:70px"></td>
+                <td id="titulo"><input disabled type="text" style="width:100%"></td>
+                <td id="cargo"><input disabled type="text" style="width:140px"></td>
+                <td id="nivel"><input disabled type="text" style="width:140px"></td>
+            </tr>
+        </table>
+        <div>
+            <span>COD DE ESTRU. ORG. :</span>
+            <span><input type="text" ></span>
+        </div>
+        <div style="margin: 2px;padding: 2px;border: 1px solid black;" class="row">
+            <div class="column">
+                Gerente Resp.:
+                <input type="text" id="resp_diretor" style="width:250px;">
+                Secret.:
+                <input type="text" id="resp_secret" style="width:250px;">
+            </div>
+            <div class="column" style="margin-left:5px;">
+                Nome de Trata:
+                <button style="width:10px;height: 10px;" onclick="dosomething()"></button>
+                <br>
+                <input type="text" id="trata1" style="width:200px;"><br>
+                Nome de Trata:
+                <button style="width:10px;height: 10px;" onclick="dosomething()"></button>
+                <br>
+                <input type="text" id="trata2" style="width:200px;">
+            </div>
+            <div class="column" style="margin-left:5px;">
+                COD:<br>
+                <input type="text" id="cod1" style="width:70px;"><br>
+                COD:<br>
+                <input type="text" id="cod2" style="width:70px;">
+            </div>
+            <div class="column" style="margin-left:5px;">
+                <br>
+                <button onclick="dosemething()">Contato</button>
+                <br>
+                <br>
+                <button onclick="dosemething()">Contato</button>
+            </div>
+            <div class="column" style="margin-left:20px;">
+                Organogr.:
+                <div style="background-color:#aaa;padding:2px;">
+                    <button ></button>
+                    <button ></button>
+                </div>
+            </div>
+            <div>
+                <span>Edificio
+                    <select>
+                        <option selected disabled></option>
+                    </select>
+                Local Ativ.:
+                <input type="text" id="local_ativo"></span>
+            </div>
+        </div>
+        <div style="display:none;" id="organograma">
+            Organograma:
+            <img src="" id="organograma_imagem">
+        </div>
+    </div>
+</div>
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#button_organograma").click(function(){
+        $("#organograma").toggle();
+        <!-- pegar imagem e coloca no $("#organograma_imagem")-->
+    });
+    $("#button_lista").click(function(){
+       $("#tabela").toggle();
+    });
+    $("#button_cadastro").click(function(){
+       $("#infoSetor").toggle();
+    });
+    $("#id_empresa").change(function(){
+        $("#estrutura_extensao").load("/conectado/empresa/estrutura/empresa");
+    });
+});
+</script>
+{% endblock inner_js %}
