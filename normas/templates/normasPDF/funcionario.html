@@ -1,0 +1,35 @@
+<div style="background-color:DarkGray;padding:2px;">
+    <button id="funcionario_cadastro">Cadastro</button>
+    <button id="funcionario_eo_equipe" disabled>EO - Equipe</button>
+    <button id="funcionario_historico_trabalho" disabled>Histórico de Trabalhos</button>
+    <button id="funcionario_treinamento" disabled>Treinamento</button>
+    <button id="funcionario_historico_empresa" disabled>Histórico na Empresa</button>
+    <button id="funcionario_curriculo" disabled>Curriculo</button>
+    <p>funcionario</p>
+</div>
+<div id="funcionario_extensao"></div>
+
+{% block inner_js_estrutura %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#funcionario_cadastro").click(function(){
+        $("#funcionario_extensao").load("/conectado/empresa/funcionario/cadastro");
+    });
+    $("#funcionario_eo_equipe").click(function(){
+        $("#funcionario_extensao").load("/conectado/empresa/funcionario/eo_equipe");
+    });
+    $("#funcionario_historico_trabalho").click(function(){
+        $("#funcionario_extensao").load("/conectado/empresa/funcionario/funcionario_historico_trabalho");
+    });
+    $("#funcionario_treinamento").click(function(){
+        $("#funcionario_extensao").load("/conectado/empresa/funcionario/funcionario_treinamento");
+    });
+    $("#funcionario_historico_empresa").click(function(){
+        $("#funcionario_extensao").load("/conectado/empresa/funcionario/funcionario_historico_empresa");
+    });
+    $("#funcionario_curriculo").click(function(){
+        $("#funcionario_extensao").load("/conectado/empresa/funcionario/funcionario_curriculo");
+    });
+    });
+</script>
+{% endblock %}

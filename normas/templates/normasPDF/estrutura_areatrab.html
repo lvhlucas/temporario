@@ -1,6 +1,11 @@
+<style>
+    .inlineblock{
+        display:inline-block;
+    }
+</style>
 <p>estrutura_areatrabalho</p>
 <div>
-    <div style="border: 1px solid black;text-align:center;padding:10px;">
+    <div style="border: 1px solid black;text-align:center;padding:10px;margin:10px;">
         <button id="button_cadastro">Cadastro</button>
         <button id="button_organograma">Organograma</button>
         <button disabled>Atribuição</button>
@@ -62,59 +67,55 @@
             </tr>
         </table>
         <div>
-            <span>COD DE ESTRU. ORG. :</span>
-            <span><input type="text" ></span>
+            COD DE ESTRU. ORG. :
+            <input type="text">
         </div>
-        <div style="margin: 2px;padding: 2px;border: 1px solid black;" class="row">
-            <div class="column">
+        <div style="margin: 2px;padding: 2px;border: 1px solid black;">
+            <div style="margin:5px;" class="inlineblock">
                 Resp.:
-                <input type="text" id="resp_diretor" style="width:250px;">
+                <input type="text" id="resp_diretor" style="width:50px;"><br>
                 Secret.:
-                <input type="text" id="resp_secret" style="width:250px;">
+                <input type="text" id="resp_secret" style="width:50px;">
             </div>
-            <div class="column" style="margin-left:5px;">
+            <div style="margin:5px;" class="inlineblock">
                 Nome de Trata:
-                <button style="width:10px;height: 10px;" onclick="dosomething()"></button>
                 <br>
-                <input type="text" id="trata1" style="width:200px;"><br>
-                Nome de Trata:
-                <button style="width:10px;height: 10px;" onclick="dosomething()"></button>
+                <input type="text" id="trata1" style="width:200px;">
                 <br>
                 <input type="text" id="trata2" style="width:200px;">
             </div>
-            <div class="column" style="margin-left:5px;">
-                COD:<br>
-                <input type="text" id="cod1" style="width:70px;"><br>
-                COD:<br>
+            <div style="margin:5px;" class="inlineblock">
+                COD:
+                <br>
+                <input type="text" id="cod1" style="width:70px;">
+                <br>
                 <input type="text" id="cod2" style="width:70px;">
             </div>
-            <div class="column" style="margin-left:5px;">
+            <div style="margin:5px;" class="inlineblock">
+                <button onclick="">Contato</button>
                 <br>
-                <button onclick="dosemething()">Contato</button>
-                <br>
-                <br>
-                <button onclick="dosemething()">Contato</button>
+                <button onclick="">Contato</button>
             </div>
-            <div class="column" style="margin-left:20px;">
+            <div style="margin:20px;" class="inlineblock">
                 Organogr.:
                 <div style="background-color:#aaa;padding:2px;">
-                    <button ></button>
-                    <button ></button>
+                    <button></button>
+                    <button></button>
                 </div>
             </div>
             <div>
-                <span>Edificio
-                    <select>
-                        <option selected disabled></option>
-                    </select>
+                Edificio:
+                <select class="inline-block" id="id_edificios" style="min-width:200px;">
+                    <option selected disabled></option>
+                </select>
                 Local Ativ.:
-                <input type="text" id="local_ativo"></span>
+                <input type="text" id="local_ativo" class="inline-block">
             </div>
         </div>
-        <div style="display:none;" id="organograma">
-            Organograma:
-            <img src="" id="organograma_imagem">
-        </div>
+    </div>
+    <div style="display:none;" id="organograma">
+        Organograma:
+        <img src="" id="organograma_imagem">
     </div>
 </div>
 {% block inner_js %}
@@ -123,12 +124,18 @@
     $("#button_organograma").click(function(){
         $("#organograma").toggle();
         <!-- pegar imagem e coloca no $("#organograma_imagem")-->
+        $("#tabela").hide();
+        $("#infoSetor").hide();
     });
     $("#button_lista").click(function(){
        $("#tabela").toggle();
+       $("#infoSetor").hide();
+       $("#organograma").hide();
     });
     $("#button_cadastro").click(function(){
        $("#infoSetor").toggle();
+       $("#tabela").hide();
+       $("#organograma").hide();
     });
     $("#id_divisao").change(function(){
         $("#estrutura_extensao").load("/conectado/empresa/estrutura/areatrab" , {data:$("#id_divisao").val()});

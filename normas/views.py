@@ -192,6 +192,20 @@ def estrutura_funcao(request):
                   {'setor': json.loads(get_funcao(codigo).content), 'tipo': 'Funções'})
 
 
+@user_passes_test(nivel_logado, login_url='/login/')
+def funcionario(request):
+    if request.is_ajax():
+        template = 'normasPDF/funcionario.html'
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def funcionario_cadastro(request):
+    if request.is_ajax():
+        template = 'normasPDF/funcionario_cadastro.html'
+    return render(request, template)
+
+
 def signup(request):
     if request.method == 'POST':
         form = RequisitaNovoUsuario(request.POST)

@@ -20,18 +20,17 @@
 
 
 </style>
-<p>empresa</p>
 <div>
     <div class="b">
+        <p>empresa</p>
         <a class="btn btn-default a" id="edificios">Edificios</a>
-        <a class="btn btn-default a" style="margin-bottom: 10px;" id="estrutura">EO - Estrut.
-            Organiz.</a>
-        <a class="btn btn-default a" id="equipes">Equipes de Trabalho</a>
-        <a class="btn btn-default a" style="margin-bottom: 10px;" id="funcionarios">Funcionários</a>
+        <a class="btn btn-default a" style="margin-bottom: 10px;" id="estrutura">EO - Estrut. Organiz.</a>
         <a class="btn btn-default a" id="contratos">Contratos</a>
         <a class="btn btn-default a" style="margin-bottom: 10px;" id="projetos">Projetos</a>
         <a class="btn btn-default a" id="estudos">Estudos de riscos</a>
         <a class="btn btn-default a" id="estrategias">Estratégias de SMS</a>
+        <a class="btn btn-default a" id="equipes">Equipes de Trabalho</a>
+        <a class="btn btn-default a" style="margin-bottom: 10px;" id="funcionarios">Funcionários</a>
     </div>
     <div style="float: left; width: 75%; ">
         <div style="background-color: gray;margin-left: 10px; padding: 10px;">
@@ -113,6 +112,9 @@
     });
     $("#estrutura").click(function(){
         $("#extensao").load("/conectado/empresa/estrutura");
+    });
+    $("#funcionarios").click(function(){
+        $("#extensao").load("/conectado/empresa/funcionario");
     });
 });
 </script>

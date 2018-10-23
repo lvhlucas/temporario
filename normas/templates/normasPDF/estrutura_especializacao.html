@@ -1,12 +1,14 @@
-
 <style>
-    .inline-block{
+    .inlineblock{
         display:inline-block;
     }
+
+
+
 </style>
 <p>estrtuura_especializacao</p>
 <div>
-    <div style="border: 1px solid black;text-align:center;padding:10px;">
+    <div style="border: 1px solid black;text-align:center;padding:10px;margin:10px;">
         <button id="button_cadastro">Cadastro</button>
         <button id="button_organograma">Organograma</button>
         <button disabled>Atribuição</button>
@@ -46,25 +48,71 @@
         <ul>Não há {{tipo}} cadastradas nessa empresa.</ul>
         {% endif %}
     </div>
-    <div id="infoSetor" style="display : hide;padding: 10px;margin: 10px;border: 1px solid black;">
+    <div id="infoSetor" style="display : none;padding: 10px;margin: 10px;border: 1px solid black;">
         <h2>Cadastro de Especialidades</h2>
         <div style="border: 1px solid black;padding:10px;">
-            <div >
+            <div>
                 <p class="inline-block">Grupo de Especialidades</p>
-                <div style="float:right; style=background-color: ;" >
+                <div style="float:right; style=background-color: ;">
                     <button>Novo</button>
                     <button>Salvar</button>
                     <button>Excluir</button>
                 </div>
             </div>
-            <input type="text" style="width:50px;">
-            <input type="text" style="width:50px;">
-            <input type="text" style="width:50px;">
-            <select  style="display:inline;">
-                <option selected disabled></option>
-            </select>
+            <div class="inlineblock">
+                Nº REG<br>
+                <input type="text" style="width:50px;">
+            </div>
+            <div class="inlineblock">
+                Nº REF<br>
+                <input type="text" style="width:50px;">
+            </div>
+            <div class="inlineblock">
+                COD<br>
+                <input type="text" style="width:50px;">
+            </div>
+            <div class="inlineblock">
+                Titulo do Grupo<br>
+                <select style="min-width:300px;">
+                    <option selected disabled></option>
+                </select>
+            </div>
         </div>
-
+        <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
+            <div>
+                <p class="inline-block">Especialidades</p>
+                <div style="float:right; style=background-color: ;">
+                    <button>Novo</button>
+                    <button>Salvar</button>
+                    <button>Excluir</button>
+                </div>
+            </div>
+            <div class="inlineblock">
+                Nº REG<br>
+                <input type="text" style="width:50px;">
+            </div>
+            <div class="inlineblock">
+                Nº REF<br>
+                <input type="text" style="width:50px;">
+            </div>
+            <div class="inlineblock">
+                COD<br>
+                <input type="text" style="width:50px;">
+            </div>
+            <div class="inlineblock">
+                Titulo da Especialidade<br>
+                <select style="min-width:300px;">
+                    <option selected disabled></option>
+                </select>
+            </div>
+            <br>
+            Nota Técnica:
+            <input type="text" style="min-width:100%;min-height:50px;">
+        </div>
+    </div>
+    <div style="display:none;" id="organograma">
+        Organograma:
+        <img src="" id="organograma_imagem">
     </div>
 </div>
 {% block inner_js %}
@@ -73,18 +121,26 @@
     $("#button_organograma").click(function(){
         $("#organograma").toggle();
         <!-- pegar imagem e coloca no $("#organograma_imagem")-->
+        $("#tabela").hide();
+        $("#infoSetor").hide();
     });
     $("#button_lista").click(function(){
        $("#tabela").toggle();
+       $("#infoSetor").hide();
+       $("#organograma").hide();
     });
     $("#button_cadastro").click(function(){
        $("#infoSetor").toggle();
+       $("#tabela").hide();
+       $("#organograma").hide();
     });
     $("#id_areatrab").change(function(){
         $("#estrutura_extensao").load("/conectado/empresa/estrutura/areatrab" , {data:$("#id_areatrab").val()});
     });
 });
 
+
+
+
 </script>
 {% endblock inner_js %}
-</div>

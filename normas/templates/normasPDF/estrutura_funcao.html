@@ -1,17 +1,123 @@
+<style>
+    .inlineblock{
+        display:inline-block;
+    }
+
+
+</style>
 <p>estrutura_funcao</p>
 <div>
-    <div style="border: 1px solid black;text-align:center;padding:10px;">
+    <div style="border: 1px solid black;text-align:center;padding:10px;margin:10px;">
         <button id="button_cadastro">Cadastro</button>
         <button id="button_organograma">Organograma</button>
         <button disabled>Atribuição</button>
         <button disabled>Contato</button>
         <button id="button_lista">Lista</button>
     </div>
-    <div style="text-align:center;margin-top:10px;">
-        <select>
-            {% for i in setor.diretorias %}
+    <div style="text-align:center;margin:10px;">
+        Funções:
+        <select id="select_setor">
+            {% for i in setor.funcoes %}
             <option value="{{i.0}}">{{i.1}}</option>
             {% endfor %}
         </select>
+        <input type="text" id="input_setor">
+    </div>
+    <div style="display:none;margin:10px;padding:10px;border: 1px solid black;" id="infoSetor">
+        <p>Cadastro de Funções</p>
+        <div style="border: 1px solid black;margin:10px;padding:10px;">
+            <div class="inlineblock">
+                Gerencia:<br>
+                Área de Trabalho:
+            </div>
+            <div class="inlineblock">
+                Nº<br>
+                <input type="text" style="min-width:20px;"><br>
+                <input type="text" style="min-width:20px;">
+            </div>
+            <div class="inlineblock">
+                COD<br>
+                <input type="text" style="min-width:20px;"><br>
+                <input type="text" style="min-width:20px;">
+            </div>
+            <div class="inlineblock">
+                <input type="text" style="min-width:20px;"><br>
+                <input type="text" style="min-width:20px;">
+            </div>
+        </div>
+        <div class="inlineblock">
+            Nº REG<br>
+            <input type="text" style="min-width:20px;">
+        </div>
+        <div class="inlineblock">
+            COD. Função<br>
+            <input type="text" style="min-width:20px;">
+        </div>
+        <div class="inlineblock">
+            Nº REF<br>
+            <input type="text" style="min-width:20px;">
+        </div>
+        <div class="inlineblock">
+            Titulo da Função<br>
+            <input type="text" style="min-width:20px;">
+        </div>
+    </div>
+    <div class="pane" id="tabela" style="display:none;margin:10px;">
+        falta colocar botões para a ordenação dos campos
+        {% if setor %}
+        <table id="t01">
+            <tr>
+                <th>Reg</th>
+                <th>Ger</th>
+                <th>Área</th>
+                <th>Função</th>
+                <th>Ger</th>
+                <th>Área Trab.</th>
+                <th>Função</th>
+                <th>Função Nome</th>
+            </tr>
+            {% for i in setor.funcoes %}
+            <tr id="row_table#{{i.0}}">
+                {% for campo in i %}
+                <td>{{campo}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <ul>Não há {{tipo}} cadastradas nessa empresa.</ul>
+        {% endif %}
+    </div>
+    <div style="display:none;margin:10px;" id="organograma">
+        Organograma:
+        <img src="" id="organograma_imagem">
     </div>
 </div>
+
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#button_organograma").click(function(){
+        $("#organograma").toggle();
+        <!-- pegar imagem e coloca no $("#organograma_imagem")-->
+        $("#tabela").hide();
+        $("#infoSetor").hide();
+    });
+    $("#button_lista").click(function(){
+       $("#tabela").toggle();
+       $("#infoSetor").hide();
+       $("#organograma").hide();
+    });
+    $("#button_cadastro").click(function(){
+       $("#infoSetor").toggle();
+       $("#tabela").hide();
+       $("#organograma").hide();
+    });
+    $("#id_especialidade").change(function(){
+        $("#estrutura_extensao").load("/conectado/empresa/estrutura/funcao" , {data:$("#id_especialidade").val()});
+    });
+});
+
+
+</script>
+{% endblock %}
