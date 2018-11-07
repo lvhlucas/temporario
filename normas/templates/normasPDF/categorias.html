@@ -1,22 +1,29 @@
 {% block categoria %}
 <style>
     .botao{height:5px;width:5px;}
+    .largura{min-width:200px;}
+    .box2{width:50px;height:20px;}
+
+
 </style>
 <div style="background-color: gray; padding: 10px;">
     <div class="inlineblock">
         <div class="inlineblock" style="text-align:right;">
             Empresa:
-            <button class="botao"></button><br>
+            <button class="botao"></button>
+            <br>
             Diretoria:
-            <button class="botao"></button><br>
+            <button class="botao"></button>
+            <br>
             Gerencia:
-            <button class="botao"></button><br>
+            <button class="botao"></button>
+            <br>
         </div>
         <div class="inlineblock">
             <select id="id_empresa" class="largura">
                 <option disabled selected></option>
                 {% for empresa in empresas.nome_empresa %}
-                    <option value="{{empresa.1}}">{{empresa.0}}</option>
+                <option value="{{empresa.1}}">{{empresa.0}}</option>
                 {% endfor %}
             </select><br>
             <select id="id_diretoria" class="largura" disabled></select><br>
@@ -26,16 +33,37 @@
     <div class="inlineblock">
         <div class="inlineblock" style="text-align:right;">
             Divisão:
-            <button class="botao"></button><br>
+            <button class="botao"></button>
+            <br>
             Área de Trabalho:
-            <button class="botao"></button><br>
+            <button class="botao"></button>
+            <br>
             Especialidades:
-            <button class="botao"></button><br>
+            <button class="botao"></button>
+            <br>
         </div>
         <div class="inlineblock">
             <select id="id_areatrab" class="largura" disabled></select><br>
             <select id="id_especialidade" class="largura" disabled></select><br>
             <select id="id_divisao" class="largura" disabled></select><br>
+        </div>
+        <div class="inlineblock">
+            <input id="id_areatrab2" class="box2" disabled><br>
+            <input id="id_especialidade2" class="box2" disabled><br>
+            <input id="id_divisao2" class="box2" disabled><br>
+        </div>
+    </div>
+    <div class="inlineblock">
+        <div class="inlineblock">
+            Código
+            <input type="text" style="width:100%;height:20px;" placeholder="Empresa/Diret./Gerência">
+            <br>
+            <input type="text" style="width:100%;height:20px;" placeholder="Div./Area Trab./Especial.">
+        </div>
+        <div class="inlineblock" style="vertical-align:top;">
+            <button>ok</button>
+            <br>
+            <button>^</button>
         </div>
     </div>
 </div>
@@ -96,6 +124,8 @@
         });
     });
 });
+
+
 </script>
 {% endblock inner_js %}
 {% endblock %}

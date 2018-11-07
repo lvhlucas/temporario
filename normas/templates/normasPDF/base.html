@@ -28,6 +28,10 @@
             }
         }
     });
+
+
+
+
 </script>
 <!DOCTYPE html>
 <html lang="br">
@@ -40,42 +44,60 @@
     <style>
         .p1 {background-color: gray;float: left;width: 20%;        }
         .p{background-color: gray;text-align: center;border: 1px solid black;}
-        .page-header{background-color: Lightgray;padding: 20px;}
+        .c{background-color: Lightgray;padding:10px;}
         .inlineblock{display:inline-block;}
+
+
+
+
     </style>
 </head>
 <body>
-<div class="page-header">
-    <h3>Somartech GRC - Gerenciamento de Riscos e Incertezas na Construção</h3>
-    {% if user.is_authenticated %}
-    Empresa
-    <input type="text" style="width:100px;">
-    <input type="text" disabled style="width:400px;background-color:lightgray;">
-    <div class="inlineblock" style="padding:5px;border:1px solid gray;">
-        <input type="checkbox" >
-        Patrocinadora
-        <input type="checkbox" >
-        Contratada
+<div class="c" style="overflow:auto;">
+    <img src="" alt="logo_inovetech" class="inlineblock" style="height:20px;width:50px;">
+    <div class="inlineblock" style="margin-left:20px;">
+        <span style="font-size:25px;">Somartech GRC </span>
+        <span style="font-size:15px;vertical-align:middle;">- Gerenciamento de Riscos e Incertezas na Construção</span>
+        {% if user.is_authenticated %}
+        <br>Empresa
+        <input type="text" style="width:100px;">
+        <input type="text" disabled style="width:350px;background-color:lightgray;">
+        {% endif %}
     </div>
-    id:
-    <input type="text" style="background-color:lightgrey;width:100px;">
-    <input type="text" style="width:100px;">
-    <div class="inlineblock">
-        Fases de Desenvolvimento
-        <div style="border:1px solid black;text-align:center;padding:5px;">
-            <a href="{% url 'normas:fase1' %}" class=" btn btn-default">1</a>
-            <a id="fase2" class=" btn btn-default" disabled>2</a>
-            <a id="fase3" class=" btn btn-default" disabled>3</a>
-            <a id="fase4" class=" btn btn-default" disabled>4</a>
-            <a id="fase5" class=" btn btn-default" disabled>5</a>
+    {% if user.is_authenticated %}
+    <div class="inlineblock" style="vertical-align:bottom;">
+        <div class="inlineblock" style="padding:5px;border:1px solid gray;">
+            <input type="checkbox">
+            Patrocinadora
+            <input type="checkbox">
+            Contratada
+        </div>
+        id:
+        <input type="text" style="background-color:lightgrey;width:100px;">
+        <input type="text" style="width:100px;">
+
+
+    </div>
+    <div class=inlineblock" style="float:right;">
+        <div class="inlineblock" >
+            <p>Fases de Desenvolvimento</p>
+            <div style="border:1px solid black;text-align:center;padding:5px;">
+                <a href="{% url 'normas:fase1' %}" class=" btn btn-default">1</a>
+                <a id="fase2" class=" btn btn-default" disabled>2</a>
+                <a id="fase3" class=" btn btn-default" disabled>3</a>
+                <a id="fase4" class=" btn btn-default" disabled>4</a>
+                <a id="fase5" class=" btn btn-default" disabled>5</a>
+            </div>
+        </div>
+        <div class="inlineblock">
+            <p class="top-menu" style="clear:right;">
+                <small>(<a href="{% url 'logout' %}">Log out</a>)</small>
+            </p>
         </div>
     </div>
-    <p class="top-menu">
-        <small>(<a href="{% url 'logout' %}">Log out</a>)</small>
-    </p>
     {% endif %}
 </div>
-<div class="content " style="min-height:380px;overflow:auto;">
+<div class="content " style="min-height:380px;overflow:auto;margin-top:10px;">
     {% block content %}
     {% endblock %}
 </div>

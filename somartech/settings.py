@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'somartech.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'normas',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': '',
-        'PORT': '5432',
+        'NAME': 'tvdllylf',
+        'USER': 'tvdllylf',
+        'PASSWORD': 'gEpBUk2QJfyAJMv84DVaTsft5w26mWFF',
+        'HOST': 'tantor.db.elephantsql.com',
+        'PORT': '',
     }
 }
 

@@ -18,6 +18,13 @@ urlpatterns = [
     path('empresa/funcionario/cadastro', views.funcionario_cadastro, name='funcionario_cadastro'),
     path('atividade/', views.atividade, name='atividade'),
     path('atividade/atividade', views.atividade_atividade, name='atividade_atividade'),
+    path('atividade/atividade/estrutura', views.atividade_atividade_estrutura, name='atividade_atividade_estrutura'),
+    path('atividade/atividade/gerencia', views.atividade_atividade_gerencia, name='atividade_atividade_gerencia'),
+    path('atividade/atividade/execucao', views.atividade_atividade_execucao, name='atividade_atividade_execucao'),
+    path('atividade/atividade/atividade', views.atividade_atividade_atividade, name='atividade_atividade_atividade'),
+    path('atividade/atividade/trabalho', views.atividade_atividade_trabalho, name='atividade_atividade_trabalho'),
+    path('atividade/atividade/operacao', views.atividade_atividade_operacao, name='atividade_atividade_operacao'),
+    path('atividade/atividade/tarefa', views.atividade_atividade_tarefa, name='atividade_atividade_tarefa'),
     path('exclui/', views.exclui_setor, name='exclui_setor'),
     # generalizar get_info, utilizando o nivel do permissão do usuário requerente.
     path('get_info/diretoria/', views.get_diretorias, name='get_diretorias'),
