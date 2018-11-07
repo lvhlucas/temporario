@@ -1,0 +1,44 @@
+
+<Style>
+    .altura_botao{height:25px;}
+</Style>
+<div style="background-color: DarkGray;padding: 2px;">
+    <button  id="estrutura_empresa">Empresa </button>
+    <button  id="estrutura_diretoria">Diretoria</button>
+    <button  id="estrutura_gerencia">Gerencias</button>
+    <button  id="estrutura_divisao">Divisões</button>
+    <button  id="estrutura_areatrabalho">Áreas de Trabalho</button>
+    <button  id="estrutura_especialidade">Especialidades</button>
+    <button  id="estrutura_funcao">Funções</button>
+</div>
+<div style="min-height: 350px;padding:10px;overflow:auto;" id="estrutura_extensao"></div>
+
+{% block inner_js_estrutura %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#estrutura_empresa").click(function(){
+        console.log("estrutura_empresa.click");
+        $("#estrutura_extensao").load("/base/empresa/estrutura/empresa");
+    });
+    $("#estrutura_diretoria").click(function(){
+        $("#estrutura_extensao").load("/base/empresa/estrutura/diretoria" , {data:$("#id_empresa").val()});
+    });
+    $("#estrutura_gerencia").click(function(){
+        $("#estrutura_extensao").load("/base/empresa/estrutura/gerencia", {data:$("#id_diretoria").val()});
+    });
+    $("#estrutura_divisao").click(function(){
+        $("#estrutura_extensao").load("/base/empresa/estrutura/divisao", {data:$("#id_gerencia").val()});
+    });
+    $("#estrutura_areatrabalho").click(function(){
+        $("#estrutura_extensao").load("/base/empresa/estrutura/areatrab", {data:$("#id_divisao").val()});
+    });
+    $("#estrutura_especialidade").click(function(){
+        $("#estrutura_extensao").load("/base/empresa/estrutura/especializacao", {data:$("#id_areatrab").val()});
+    });
+    $("#estrutura_funcao").click(function(){
+        $("#estrutura_extensao").load("/base/empresa/estrutura/funcao", {data:$("#id_especialidade").val()});
+    });
+});
+
+</script>
+{% endblock inner_js_estrutura %}

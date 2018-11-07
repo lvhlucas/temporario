@@ -1,0 +1,98 @@
+{% block categoria %}
+<style>
+    .botao{height:5px;width:5px;}
+</style>
+<div style="background-color: gray; padding: 10px;">
+    <div class="inlineblock">
+        <div class="inlineblock" style="text-align:right;">
+            Empreedim.:
+            <button class="botao"></button><br>
+            Obra:
+            <button class="botao"></button><br>
+            Fase:
+            <button class="botao"></button><br>
+        </div>
+        <div class="inlineblock">
+            <select id="id_empreendimento" class="largura">
+                <option disabled selected></option>
+                {% for empresa in empresas.nome_empresa %}
+                    <option value="{{empresa.1}}">{{empresa.0}}</option>
+                {% endfor %}
+            </select><br>
+            <select id="id_obra" class="largura" disabled></select><br>
+            <select id="id_fase" class="largura" disabled></select><br>
+        </div>
+    </div>
+    <div class="inlineblock">
+        <div class="inlineblock" style="text-align:right;">
+            Atividade:
+            <button class="botao"></button><br>
+            Operação:
+            <button class="botao"></button><br>
+            Etapa Trab.:
+            <button class="botao"></button><br>
+        </div>
+        <div class="inlineblock">
+            <select id="id_atividade" class="largura" disabled></select><br>
+            <select id="id_operacao" class="largura" disabled></select><br>
+            <select id="id_etapatrabalho" class="largura" disabled></select><br>
+        </div>
+    </div>
+</div>
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#id_empreendimento").change(function () {
+        $("#id_obra").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
+        $("#id_fase").empty().prop("disabled", true);
+        $("#id_etapatrabalho").empty().prop("disabled", true);
+        $("#id_atividade").empty().prop("disabled", true);
+        $("#id_operacao").empty().prop("disabled", true);
+        $.get("/base/get_info/empreendimento",{data:$("#id_empreendimento option:selected").val()},function(resultado){
+            $.each(resultado.empreendimentos, function(index, value){
+                $("#id_obra").append(new Option(value[1], value));
+            });
+        });
+    });
+    $("#id_obra").change(function () {
+        $("#id_fase").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
+        $("#id_etapatrabalho").empty().prop("disabled", true);
+        $("#id_atividade").empty().prop("disabled", true);
+        $("#id_operacao").empty().prop("disabled", true);
+        $.get("/base/get_info/obra",{data:$("#id_obra option:selected").val()},function(resultado){
+            $.each(resultado.obras, function(index, value){
+                $("#id_fase").append(new Option(value[1]));
+            });
+        });
+    });
+    $("#id_fase").change(function () {
+        $("#id_etapatrabalho").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
+        $("#id_atividade").empty().prop("disabled", true);
+        $("#id_operacao").empty().prop("disabled", true);
+        $.get("/base/get_info/fase",{data:$("#id_fase option:selected").val()},function(resultado){
+            $.each(resultado.fases, function(index, value){
+                $("#id_etapatrabalho").append(new Option(value[1]));
+            });
+        });
+    });
+    $("#id_etapatrabalho").change(function () {
+        $("#id_atividade").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
+        $("#id_operacao").empty().prop("disabled", true);
+        $.get("/base/get_info/etapatrabalho",{data:$("#id_etapatrabalho option:selected").val()},function(resultado){
+            $.each(resultado.etapatrabalhos, function(index, value){
+                $("#id_atividade").append(new Option(value[1]));
+            });
+        });
+    });
+    $("#id_atividade").change(function () {
+        $("#id_operacao").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
+        $.get("/base/get_info/atividade",{data:$("#id_atividade option:selected").val()},function(resultado){
+            $.each(resultado.atividades, function(index, value){
+                $("#id_especialidades").append(new Option(value[1]));
+            });
+        });
+    });
+});
+</script>
+{% endblock inner_js %}
+{% endblock %}

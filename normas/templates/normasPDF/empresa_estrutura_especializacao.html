@@ -1,12 +1,9 @@
 <style>
-    .inlineblock{
-        display:inline-block;
-    }
-
-
+    table#t01 ,table#t01 th,table#t01 td {border: 1px solid black;padding:2px;}
+    .inlineblock{display:inline-block;}
+    .tabela_css{display: inline-block;display: none;overflow-y: scroll;max-height:400px;margin:10px;}
 
 </style>
-<p>estrtuura_especializacao</p>
 <div>
     <div style="border: 1px solid black;text-align:center;padding:10px;margin:10px;">
         <button id="button_cadastro">Cadastro</button>
@@ -25,7 +22,7 @@
         </select>
         <input type="text" id="input_setor">
     </div>
-    <div class="pane" style="display : none;" id="tabela">
+    <div class="tabela_css" id="tabela">
         falta colocar botões para a ordenação dos campos
         {% if setor %}
         <table id="t01">

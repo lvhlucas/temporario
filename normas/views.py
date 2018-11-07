@@ -1,5 +1,4 @@
 from .forms import RequisitaNovoUsuario
-from .models import NormaPdf, TitulosNorma
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import PasswordChangeForm
@@ -52,7 +51,12 @@ def home(request):
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def conectado(request):
-    return render(request, 'normasPDF/conectado.html')
+    return render(request, 'normasPDF/base.html')
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def fase1(request):
+    return render(request, 'normasPDF/fase1.html')
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
@@ -61,16 +65,6 @@ def empresa(request):
     empresas = {"nome_empresa": [["Empresa A", 55], ["Empresa B", 56]]}
 
     return render(request, 'normasPDF/empresa.html', {'empresas': empresas})
-
-
-@user_passes_test(nivel_logado, login_url='/login/')
-def exibe_normas(request):
-    norma = NormaPdf.objects.select_related('tituloFK').all().order_by('documento', 'tituloFK', 'norma1', 'norma2',
-                                                                       'norma3')
-    documento = [1, 3, 4]  # buscar o nome de todos os documentos
-
-    return render(request, 'normasPDF/normasPDF.html', {'norma': norma, 'titulo': TitulosNorma.objects.all(),
-                                                        'documento': documento})
 
 
 def get_empresas(request):
@@ -126,83 +120,91 @@ def exclui_setor(request):
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura(request):
-    return render(request, 'normasPDF/estrutura.html')
+    return render(request, 'normasPDF/empresa_estrutura.html')
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_empresa(request):
-    if request.is_ajax():
-        codigo = request.POST.get('data', None)
-        template = 'normasPDF/estrutura_empresa.html'
-    return render(request, template,
-                  {'setor': json.loads(get_empresas(codigo).content), 'tipo': 'Empresa'})
+    codigo = request.POST.get('data', None)
+    template = 'normasPDF/empresa_estrutura_empresa.html'
+
+    return render(request, template, {'setor': json.loads(get_empresas(codigo).content), 'tipo': 'Empresa'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_diretoria(request):
-    if request.is_ajax():
-        codigo_empresa = request.POST.get('data', None)
-        template = 'normasPDF/estrutura_diretoria.html'
+    codigo_empresa = request.POST.get('data', None)
+    template = 'normasPDF/empresa_estrutura_diretoria.html'
 
     return render(request, template, {'setor': json.loads(get_diretorias(codigo_empresa).content), 'tipo': 'diretoria'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_gerencia(request):
-    if request.is_ajax():
-        codigo_diretoria = request.POST.get('data', None)
-        template = 'normasPDF/estrutura_gerencia.html'
+    codigo_diretoria = request.POST.get('data', None)
+    template = 'normasPDF/empresa_estrutura_gerencia.html'
+
     return render(request, template,
                   {'setor': json.loads(get_gerencias(codigo_diretoria).content), 'tipo': 'gerencia'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_divisao(request):
-    if request.is_ajax():
-        codigo_diretoria = request.POST.get('data', None)
-        template = 'normasPDF/estrutura_divisao.html'
+    codigo_diretoria = request.POST.get('data', None)
+    template = 'normasPDF/empresa_estrutura_divisao.html'
+
     return render(request, template,
                   {'setor': json.loads(get_divisoes(codigo_diretoria).content), 'tipo': 'divisões'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_areatrab(request):
-    if request.is_ajax():
-        codigo = request.POST.get('data', None)
-        template = 'normasPDF/estrutura_areatrab.html'
+    codigo = request.POST.get('data', None)
+    template = 'normasPDF/empresa_estrutura_areatrab.html'
+
     return render(request, template,
                   {'setor': json.loads(get_areatrabalhos(codigo).content), 'tipo': 'Área de trabalhos'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_especializacao(request):
-    if request.is_ajax():
-        codigo = request.POST.get('data', None)
-        template = 'normasPDF/estrutura_especializacao.html'
+    codigo = request.POST.get('data', None)
+    template = 'normasPDF/empresa_estrutura_especializacao.html'
+
     return render(request, template,
                   {'setor': json.loads(get_especialidades(codigo).content), 'tipo': 'especialidades'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_funcao(request):
-    if request.is_ajax():
-        codigo = request.POST.get('data', None)
-        template = 'normasPDF/estrutura_funcao.html'
-    return render(request, template,
-                  {'setor': json.loads(get_funcao(codigo).content), 'tipo': 'Funções'})
+    codigo = request.POST.get('data', None)
+    template = 'normasPDF/empresa_estrutura_funcao.html'
+
+    return render(request, template, {'setor': json.loads(get_funcao(codigo).content), 'tipo': 'Funções'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def funcionario(request):
-    if request.is_ajax():
-        template = 'normasPDF/funcionario.html'
+    template = 'normasPDF/funcionario.html'
     return render(request, template)
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def funcionario_cadastro(request):
-    if request.is_ajax():
-        template = 'normasPDF/funcionario_cadastro.html'
+    template = 'normasPDF/funcionario_cadastro.html'
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def atividade(request):
+    template = 'normasPDF/atividade.html'
+    empresas = {"nome_empresa": [["Empresa A", 55], ["Empresa B", 56]]}
+    return render(request, template, {"empresa": empresas})
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def atividade_atividade(request):
+    template = 'normasPDF/atividade_atividade.html'
     return render(request, template)
 
 

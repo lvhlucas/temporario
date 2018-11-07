@@ -3,8 +3,8 @@ from . import views
 
 app_name = 'normas'
 urlpatterns = [
-    path('busca/', views.exibe_normas, name='exibe_normas'),
     path('', views.conectado, name='conectado'),
+    path('fase1', views.fase1, name='fase1'),
     path('empresa/', views.empresa, name='empresa'),
     path('empresa/estrutura', views.estrutura, name='estrutura'),
     path('empresa/estrutura/diretoria', views.estrutura_diretoria, name='estrutura_diretoria'),
@@ -16,7 +16,10 @@ urlpatterns = [
     path('empresa/estrutura/funcao', views.estrutura_funcao, name='estrutura_funcao'),
     path('empresa/funcionario', views.funcionario, name='funcionario'),
     path('empresa/funcionario/cadastro', views.funcionario_cadastro, name='funcionario_cadastro'),
+    path('atividade/', views.atividade, name='atividade'),
+    path('atividade/atividade', views.atividade_atividade, name='atividade_atividade'),
     path('exclui/', views.exclui_setor, name='exclui_setor'),
+    # generalizar get_info, utilizando o nivel do permissão do usuário requerente.
     path('get_info/diretoria/', views.get_diretorias, name='get_diretorias'),
     path('get_info/empresa/', views.get_empresas, name='get_empresas'),
     path('get_info/gerencia/', views.get_gerencias, name='get_gerencias'),

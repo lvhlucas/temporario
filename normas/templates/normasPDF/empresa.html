@@ -1,120 +1,38 @@
-{% extends "normasPDF/conectado.html" %}
-
-
+{% extends "normasPDF/fase1.html" %}
 {% block conectado %}
 <style>
-    .a {
-    margin-bottom: 1px;
-    width: 100%;
-    }
-    .b{
-    float: left;
-    width: 15%;
-    background-color: gray;
-    padding: 5px;
-    height:500px;
-    }
-    .largura{
-        min-width:200px;
-    }
-
-
+    .a {width: 100%;}
+    .b{width: 15%;background-color: gray;padding:5px;height:500px;}
+    .largura{min-width:200px;}
+    .inlineblock{display:inline-block;}
+    .margintop{margin-top:10px;}
 </style>
 <div>
-    <div class="b">
-        <p>empresa</p>
-        <a class="btn btn-default a" id="edificios">Edificios</a>
-        <a class="btn btn-default a" style="margin-bottom: 10px;" id="estrutura">EO - Estrut. Organiz.</a>
-        <a class="btn btn-default a" id="contratos">Contratos</a>
-        <a class="btn btn-default a" style="margin-bottom: 10px;" id="projetos">Projetos</a>
-        <a class="btn btn-default a" id="estudos">Estudos de riscos</a>
-        <a class="btn btn-default a" id="estrategias">Estratégias de SMS</a>
-        <a class="btn btn-default a" id="equipes">Equipes de Trabalho</a>
-        <a class="btn btn-default a" style="margin-bottom: 10px;" id="funcionarios">Funcionários</a>
+    <div class="b inlineblock">
+        <button class=" a" id="edificios">Edificios</button>
+        <button class=" a" id="estrutura">EO - Estrut. Organiz.</button>
+        <button class=" a margintop" id="contratos">Contratos</button>
+        <button class=" a margintop" id="projetos">Projetos</button>
+        <button class=" a" id="estudos">Estudos de riscos</button>
+        <button class=" a margintop" id="estrategias">Estratégias de SMS</button>
+        <button class=" a margintop" id="equipes">Equipes de Trabalho</button>
+        <button class=" a" id="funcionarios">Funcionários</button>
     </div>
-    <div style="float: left; width: 75%; ">
-        <div style="background-color: gray;margin-left: 10px; padding: 10px;">
-            Empresa:
-            <select id="id_empresa" class="largura">
-                <option disabled selected></option>
-                {% for empresa in empresas.nome_empresa %}
-                <option value="{{empresa.1}}">{{empresa.0}}</option>
-                {% endfor %}
-            </select>
-            <input id="id_cod_empresa" disabled style="width:50px;"><br>
-            Diretoria:
-            <select id="id_diretoria" class="largura" disabled></select><br>
-            Gerencia:
-            <select id="id_gerencia" class="largura" disabled></select><br>
-            Divisão:
-            <select id="id_divisao" class="largura" disabled></select><br>
-            Área de Trabalho:
-            <select id="id_areatrab" class="largura" disabled></select><br>
-            Especialidades:
-            <select id="id_especialidade" class="largura" disabled></select>
+    <div class="inlineblock" style="width: 84%;vertical-align:top; ">
+        <div>
+            {% include "normasPDF/categorias.html" with empresas=empresas %}
         </div>
-        <div style=";background-color: gray;margin-left: 10px;margin-top:10px;" id="extensao"></div>
+        <div style=";background-color: gray;margin-top: 10px;" id="extensao"></div>
     </div>
 </div>
 {% block inner_js %}
 <script type="text/javascript">
     $(document).ready(function(){
-    $("#id_empresa").change(function () {
-        $("#id_cod_empresa").val($("#id_empresa option:selected").val());
-        $("#id_diretoria").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
-        $("#id_gerencia").empty().prop("disabled", true);
-        $("#id_divisao").empty().prop("disabled", true);
-        $("#id_areatrab").empty().prop("disabled", true);
-        $("#id_especialidade").empty().prop("disabled", true);
-        $.get("/conectado/get_info/diretoria",{data:$("#id_empresa option:selected").val()},function(resultado){
-            $.each(resultado.diretorias, function(index, value){
-                $("#id_diretoria").append(new Option(value[1], value));
-            });
-        });
-    });
-    $("#id_diretoria").change(function () {
-        $("#id_gerencia").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
-        $("#id_divisao").empty().prop("disabled", true);
-        $("#id_areatrab").empty().prop("disabled", true);
-        $("#id_especialidade").empty().prop("disabled", true);
-        $.get("/conectado/get_info/gerencia",{data:$("#id_diretoria option:selected").val()},function(resultado){
-            $.each(resultado.gerencias, function(index, value){
-                $("#id_gerencia").append(new Option(value[1]));
-            });
-        });
-    });
-    $("#id_gerencia").change(function () {
-        $("#id_divisao").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
-        $("#id_areatrab").empty().prop("disabled", true);
-        $("#id_especialidade").empty().prop("disabled", true);
-        $.get("/conectado/get_info/divisao",{data:$("#id_gerencia option:selected").val()},function(resultado){
-            $.each(resultado.divisoes, function(index, value){
-                $("#id_divisao").append(new Option(value[1]));
-            });
-        });
-    });
-    $("#id_divisao").change(function () {
-        $("#id_areatrab").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
-        $("#id_especialidade").empty().prop("disabled", true);
-        $.get("/conectado/get_info/areatrab",{data:$("#id_divisao option:selected").val()},function(resultado){
-            $.each(resultado.areatrabalhos, function(index, value){
-                $("#id_areatrab").append(new Option(value[1]));
-            });
-        });
-    });
-    $("#id_areatrab").change(function () {
-        $("#id_especialidade").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
-        $.get("/conectado/get_info/especialidade",{data:$("#id_areatrab option:selected").val()},function(resultado){
-            $.each(resultado.especialidades, function(index, value){
-                $("#id_especialidades").append(new Option(value[1]));
-            });
-        });
-    });
     $("#estrutura").click(function(){
-        $("#extensao").load("/conectado/empresa/estrutura");
+        $("#extensao").load("/base/empresa/estrutura");
     });
     $("#funcionarios").click(function(){
-        $("#extensao").load("/conectado/empresa/funcionario");
+        $("#extensao").load("/base/empresa/funcionario");
     });
 });
 </script>

@@ -1,0 +1,40 @@
+{% extends "normasPDF/fase1.html" %}
+{% block conectado %}
+<style>
+    .a {width: 100%;}
+    .b{width: 15%;background-color: gray;padding:5px;height:500px;}
+    .largura{min-width:200px;}
+    .inlineblock{display:inline-block;}
+    .margintop{margin-top:10px;}
+</style>
+<div>
+    <div class="b inlineblock">
+        <button class=" a" id="empreendimento" disabled>Empreendimentos</button>
+        <button class=" a" id="obras" disabled>Obras</button>
+        <button class=" a margintop" id="projeto" disabled>Projetos</button>
+        <button class=" a margintop" id="atividade">Atividades</button>
+        <button class=" a" id="operacao" disabled>Operações e Tarefas</button>
+        <button class=" a margintop" id="executivo" disabled>Planos Executivos</button>
+        <button class=" a margintop" id="equipe" disabled>Equipe de Trabalho</button>
+        <button class=" a" id="funcionario" disabled>Funcionários</button>
+    </div>
+    <div class="inlineblock" style="width: 84%;vertical-align:top; ">
+        <div>
+            {% include "normasPDF/categorias.html" with empresas=empresa %}
+        </div>
+        <div style="margin-top: 10px;" id="extensao">
+            {% block extensao %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#atividade").click(function(){
+        $("#extensao").load("/base/atividade/atividade");
+    });
+});
+</script>
+{% endblock inner_js %}
+{% endblock %}

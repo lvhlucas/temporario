@@ -1,24 +1,10 @@
 <style>
-table#t01 ,table#t01 th,table#t01 td {
-        border: 1px solid black;
-    }
-    td{
-       padding: 2px;
-    }
-    .th01{
-        width: 300px;
-    }
-    .column{
-        float: left;
-    }
-    .pane{
-        display: inline-block;
-        overflow-y: scroll;
-        max-height:400px;
-    }
+    table#t01 ,table#t01 th,table#t01 td {border: 1px solid black;padding:2px;}
+    .inlineblock{display:inline-block;}
+    .tabela_css{display: inline-block;display: none;overflow-y: scroll;max-height:400px;margin:10px;}
+
 
 </style>
-<p>estrutura_gerencia</p>
 <div>
     <div style="border: 1px solid black;text-align:center;padding:10px;margin:10px;">
         <button id="button_cadastro">Cadastro</button>
@@ -30,20 +16,24 @@ table#t01 ,table#t01 th,table#t01 td {
     <div style="text-align:center;margin-top:10px;">
         Gerencia:
         <select id="select_setor">
+            <option disabled selected></option>
             {% for i in setor.gerencias %}
             <option value="{{i.0}}">{{i.1}}</option>
             {% endfor %}
         </select>
         <input id="input_setor" type="text">
     </div>
-    <div class="pane" id="tabela" style="display:none;">
+    <div class="tabela_css" id="tabela">
         falta colocar botões para a ordenação dos campos
         {% if setor %}
         <table id="t01">
             <tr>
-                <th>ID</th>
-                <th class="th01">Nome</th>
-                <th class="th01">Responsavel</th>
+                <th>Reg</th>
+                <th>Ger</th>
+                <th>Ger</th>
+                <th>Nivel</th>
+                <th>Titulo</th>
+                <th>Ger de Comando</th>
             </tr>
             {% for i in setor.gerencias %}
             <tr id="row_table#{{i.0}}">
@@ -54,7 +44,7 @@ table#t01 ,table#t01 th,table#t01 td {
             {% endfor %}
         </table>
         {% else %}
-        <ul>Não há {{tipo}} cadastradas nessa empresa.</ul>
+        Não há {{tipo}} cadastradas nessa empresa.
         {% endif %}
     </div>
     <div id="infoSetor" style="display : none; background-color: white; padding: 5px;margin: 10px;">
@@ -77,42 +67,46 @@ table#t01 ,table#t01 th,table#t01 td {
             </tr>
         </table>
         COD DE ESTRU. ORG. : <input type="text" style="width:80%;">
-        <div style="margin: 2px;padding: 2px;" class="row">
-            <div class="column">
-                Diretor Resp.:<br>
-                <input type="text" id="resp_diretor" style="width:250px;"><br>
-                Secret.:<br>
-                <input type="text" id="resp_secret" style="width:250px;">
+        <div style="margin: 2px;padding: 2px;border: 1px solid black;">
+            <div style="margin:5px;text-align:right;" class="inlineblock">
+                Gerente Resp.:
+                <input type="text" id="resp_diretor" style="width:50px;"><br>
+                Secret.:
+                <input type="text" id="resp_secret" style="width:50px;">
             </div>
-            <div class="column" style="margin-left:5px;">
+            <div style="margin:5px;" class="inlineblock">
                 Nome de Trata:
-                <button style="width:10px;height: 10px;" onclick="dosomething()"></button>
                 <br>
-                <input type="text" id="trata1" style="width:200px;"><br>
-                Nome de Trata:
-                <button style="width:10px;height: 10px;" onclick="dosomething()"></button>
+                <input type="text" id="trata1" style="width:200px;">
                 <br>
                 <input type="text" id="trata2" style="width:200px;">
             </div>
-            <div class="column" style="margin-left:5px;">
-                COD:<br>
-                <input type="text" id="cod1" style="width:70px;"><br>
-                COD:<br>
+            <div style="margin:5px;" class="inlineblock">
+                COD:
+                <br>
+                <input type="text" id="cod1" style="width:70px;">
+                <br>
                 <input type="text" id="cod2" style="width:70px;">
             </div>
-            <div class="column" style="margin-left:5px;">
+            <div style="margin:5px;" class="inlineblock">
+                <button onclick="">Contato</button>
                 <br>
-                <button onclick="dosemething()">Contato</button>
-                <br>
-                <br>
-                <button onclick="dosemething()">Contato</button>
+                <button onclick="">Contato</button>
             </div>
-            <div class="column" style="margin-left:20px;">
+            <div style="margin:20px;" class="inlineblock">
                 Organogr.:
-                <div style="background-color:#aaa;padding:5px;">
-                    <button style="height:10px;width:10px;"></button>
-                    <button style="height:10px;width:10px;"></button>
+                <div style="background-color:#aaa;padding:2px;">
+                    <button></button>
+                    <button></button>
                 </div>
+            </div>
+            <div>
+                Edificio:
+                <select class="inline-block" id="id_edificios" style="min-width:200px;">
+                    <option selected disabled></option>
+                </select>
+                Local Ativ.:
+                <input type="text" id="local_ativo" class="inline-block">
             </div>
         </div>
     </div>
@@ -131,15 +125,20 @@ table#t01 ,table#t01 th,table#t01 td {
     $("#button_organograma").click(function(){
         $("#organograma").toggle();
         <!-- pegar imagem e coloca no $("#organograma_imagem")-->
+        $("#tabela").hide();
+        $("#infoSetor").hide();
     });
     $("#button_lista").click(function(){
        $("#tabela").toggle();
+       $("#infoSetor").hide();
+       $("#organograma").hide();
     });
     $("#button_cadastro").click(function(){
        $("#infoSetor").toggle();
+       $("#tabela").hide();
+       $("#organograma").hide();
     });
 });
-
 
 </script>
 {% endblock inner_js %}

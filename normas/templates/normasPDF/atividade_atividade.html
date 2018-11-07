@@ -1,0 +1,23 @@
+{% block extensao %}
+<style>
+
+</style>
+<!--quando houver click nos botões usar ajax pegar os html e inserir em id="atividade_extensao"  -->
+<script>
+
+</script>
+<div>
+    {% include "normasPDF/categorias_atividade.html" %}
+</div>
+<div style="margin-top:10px;background-color:lightgray;padding:2px;">
+    <button id="1">Estrut. Organiz.</button>
+    <button id="2">1. Etapa de Gerenc</button>
+    <button id="3">2. Fase de Execução</button>
+    <button id="4">3. Atividade</button>
+    <button id="5">4. Etapa de Trabalho</button>
+    <button id="6">5. Operação.</button>
+    <button id="7">6. Tarefa</button>
+</div>
+<div id="atividade_extensao"></div>
+
+{% endblock %}

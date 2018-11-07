@@ -120,7 +120,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/conectado/'
+LOGIN_REDIRECT_URL = '/base/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 

@@ -1,11 +1,9 @@
 <style>
-    .inlineblock{
-        display:inline-block;
-    }
-
+    table#t01 ,table#t01 th,table#t01 td {border: 1px solid black;padding:2px;}
+    .inlineblock{display:inline-block;}
+    .tabela_css{display: inline-block;display: none;overflow-y: scroll;max-height:400px;margin:10px;}
 
 </style>
-<p>estrutura_funcao</p>
 <div>
     <div style="border: 1px solid black;text-align:center;padding:10px;margin:10px;">
         <button id="button_cadastro">Cadastro</button>
@@ -17,6 +15,7 @@
     <div style="text-align:center;margin:10px;">
         Funções:
         <select id="select_setor">
+            <option selected disabled></option>
             {% for i in setor.funcoes %}
             <option value="{{i.0}}">{{i.1}}</option>
             {% endfor %}
@@ -62,7 +61,7 @@
             <input type="text" style="min-width:20px;">
         </div>
     </div>
-    <div class="pane" id="tabela" style="display:none;margin:10px;">
+    <div class="tabela_css" id="tabela">
         falta colocar botões para a ordenação dos campos
         {% if setor %}
         <table id="t01">

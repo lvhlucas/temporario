@@ -21,7 +21,7 @@ from normas.views import home, signup, activate, valida_usuario_gerente, change_
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('conectado/', include('normas.urls')),
+    path('base/', include('normas.urls')),
     path('cadastro/', signup, name='signup'),
     path('login/', auth_views.login, name='login'),
     path('logout/', auth_views.logout, {'next_page': '/login/'}, name='logout'),

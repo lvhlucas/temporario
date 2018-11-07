@@ -1,81 +1,87 @@
 {% load staticfiles %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue =   decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue =   decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
         }
+        return cookieValue;
     }
-    return cookieValue;
-}
-var csrftoken = getCookie('csrftoken');
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    var csrftoken = getCookie('csrftoken');
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
         }
-    }
-});
+    });
 </script>
-<html>
+<!DOCTYPE html>
+<html lang="br">
 <head>
-    <title>Somartech </title>
+    <meta charset="UTF-8">
+    <title>Somartech GRC</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <style>
-        .p1 {
-            background-color: gray;
-            float: left;
-            width: 20%;
-        }
-        .p{
-            background-color: gray;
-            text-align: center;
-            border-style: solid;
-            border-width: 2px;
-        }
-        .page-header{
-            color:white;
-            background-color: #f1f1f1;
-            padding: 20px;
-            text-align: center;
-        }
-        .page-header a{
-            color: white;
-            text-align: center;
-        }
-
-
+        .p1 {background-color: gray;float: left;width: 20%;        }
+        .p{background-color: gray;text-align: center;border: 1px solid black;}
+        .page-header{background-color: Lightgray;padding: 20px;}
+        .inlineblock{display:inline-block;}
     </style>
 </head>
 <body>
-<div class="page-header" style="background-color: DodgerBlue;color:white;">
-    <h1>Somartech GRC - Gerenciamento de Riscos e Incertezas na Construção</h1>
+<div class="page-header">
+    <h3>Somartech GRC - Gerenciamento de Riscos e Incertezas na Construção</h3>
     {% if user.is_authenticated %}
-    <p class="top-menu">Hello {{ user.first_name }}
+    Empresa
+    <input type="text" style="width:100px;">
+    <input type="text" disabled style="width:400px;background-color:lightgray;">
+    <div class="inlineblock" style="padding:5px;border:1px solid gray;">
+        <input type="checkbox" >
+        Patrocinadora
+        <input type="checkbox" >
+        Contratada
+    </div>
+    id:
+    <input type="text" style="background-color:lightgrey;width:100px;">
+    <input type="text" style="width:100px;">
+    <div class="inlineblock">
+        Fases de Desenvolvimento
+        <div style="border:1px solid black;text-align:center;padding:5px;">
+            <a href="{% url 'normas:fase1' %}" class=" btn btn-default">1</a>
+            <a id="fase2" class=" btn btn-default" disabled>2</a>
+            <a id="fase3" class=" btn btn-default" disabled>3</a>
+            <a id="fase4" class=" btn btn-default" disabled>4</a>
+            <a id="fase5" class=" btn btn-default" disabled>5</a>
+        </div>
+    </div>
+    <p class="top-menu">
         <small>(<a href="{% url 'logout' %}">Log out</a>)</small>
     </p>
     {% endif %}
 </div>
-<div class="content container" style="min-height:400px;">
+<div class="content " style="min-height:380px;overflow:auto;">
     {% block content %}
     {% endblock %}
 </div>
 <footer>
     <p class="p">INOVETECH - ENGENHARIA E INOVAÇÃO LTDA - Sistema GRC versão 1.0</p>
 </footer>
+
 </body>
 </html>
