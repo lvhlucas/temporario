@@ -1,26 +1,48 @@
 {% block extensao %}
 <style>
+    .margintop{margin-top:10px;}
 
 </style>
 <div>
     {% include "normasPDF/categorias_atividade.html" %}
 </div>
-<div style="margin-top:10px;background-color:lightgray;padding:2px;">
-    <button id="estrutura">Estrut. Organiz.</button>
-    <button id="gerencia">1. Etapa de Gerenc</button>
-    <button id="execucao">2. Fase de Execução</button>
-    <button id="atividade">3. Atividade</button>
-    <button id="trabalho">4. Etapa de Trabalho</button>
-    <button id="operacao">5. Operação.</button>
-    <button id="tarefa">6. Tarefa</button>
+<div class="margintop" style="background-color:lightgray;padding:2px;">
+    <button id="atividade_estrutura">Estrut. Organiz.</button>
+    <button id="atividade_gerencia">1. Etapa de Gerencia</button>
+    <button id="atividade_execucao">2. Fase de Execução</button>
+    <button id="atividade_atividade">3. Atividade</button>
+    <button id="atividade_trabalho">4. Etapa de Trabalho</button>
+    <button id="atividade_operacao">5. Operação.</button>
+    <button id="atividade_tarefa">6. Tarefa</button>
 </div>
-<div id="atividade_extensao"></div>
-<!--quando houver click nos botões usar ajax pegar os html e inserir em id="atividade_extensao"  -->
+<div id="atividade_extensao" style="background-color:gray;padding:10px;">
+    {% block estrututra_extensao %}
+    {% endblock %}
+</div>
 <script>
     $(document).ready(function(){
-    $("#estrutura_empresa").click(function(){
-        $("#estrutura_extensao").load("/base/atividade/atividade/estrutura");
+        $("#atividade_estrutura").click(function(){
+            $("#atividade_extensao").load("/base/atividade/atividade/estrutura");
+        });
+        $("#atividade_gerencia").click(function(){
+            $("#atividade_extensao").load("/base/atividade/atividade/gerencia");
+        });
+        $("#atividade_execucao").click(function(){
+            $("#atividade_extensao").load("/base/atividade/atividade/execucao");
+        });
+        $("#atividade_atividade").click(function(){
+            $("#atividade_extensao").load("/base/atividade/atividade/atividade");
+        });
+        $("#atividade_trabalho").click(function(){
+            $("#atividade_extensao").load("/base/atividade/atividade/trabalho");
+        });
+        $("#atividade_operacao").click(function(){
+            $("#atividade_extensao").load("/base/atividade/atividade/operacao");
+        });
+        $("#atividade_tarefa").click(function(){
+            $("#atividade_extensao").load("/base/atividade/atividade/tarefa");
+        });
     });
-    });
+
 </script>
 {% endblock %}

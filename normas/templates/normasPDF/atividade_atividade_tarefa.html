@@ -1,0 +1,75 @@
+{% block estrututra_extensao %}
+<style>
+    .inlineblock{display:inlineblock;}
+    table, th, td {border: 1px solid black;}
+</style>
+<p style="font-size:30px;">Tarefa</p>
+<div class="inlineblock" style="width:50%;vertical-align:top;">
+    Cod. Geral Oper.
+    <input type="text">
+    <br>
+    Cod. Geral Tar.
+    <input type="text">
+    <div>
+        <div class="inlineblock">
+            Nº Ref.
+            <br>
+            <input type="text" style="width:50px;">
+        </div>
+        <div class="inlineblock">
+            Cód. Et.Ger
+            <br>
+            <input type="text" style="width:50px;">
+        </div>
+        <div class="inlineblock">
+            Cód. Ativ
+            <br>
+            <input type="text" style="width:50px;">
+        </div>
+        <div class="inlineblock">
+            Cód. Et.Trab.
+            <br>
+            <input type="text" style="width:50px;">
+        </div>
+        <div class="inlineblock">
+            Cód. Oper.
+            <br>
+            <input type="text" style="width:50px;">
+        </div>
+        <div class="inlineblock">
+            Operação
+            <br>
+            <input type="text" style="width:150px;">
+        </div>
+    </div>
+    <table style="heigth:100px;overflow-y:scroll;margin-top:10px;">
+        <tr>
+            <th>Nº Reg.</th>
+            <th>Et.Ger</th>
+            <th>Ativ.</th>
+            <th>Nº Ref.</th>
+            <th>Cód.</th>
+            <th>Titulo.</th>
+        </tr>
+        {% for i in dado %}
+        <tr>
+            <td>{{i.0}}</td>
+            <td>{{i.1}}</td>
+            <td>{{i.2}}</td>
+            <td>{{i.3}}</td>
+            <td>{{i.4}}</td>
+            <td>{{i.5}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="inlineblock">
+    Nota Técnica
+    <br>
+    <input type="text" style="width:100%;height:150;">
+    <br>
+    Procedimentos Relacionados
+    <br>
+    <input type="text" style="width:100%;height:150;">
+</div>
+{% endblock %}

@@ -210,43 +210,43 @@ def atividade_atividade(request):
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def atividade_atividade_estrutura(request):
-    template = 'normasPDF/atividade_atividade.html'
+    template = 'normasPDF/atividade_atividade_estrutura.html'
     return render(request, template)
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def atividade_atividade_gerencia(request):
-    template = 'normasPDF/atividade_atividade.html'
+    template = 'normasPDF/atividade_atividade_gerencia.html'
     return render(request, template)
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def atividade_atividade_execucao(request):
-    template = 'normasPDF/atividade_atividade.html'
+    template = 'normasPDF/atividade_atividade_execucao.html'
     return render(request, template)
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def atividade_atividade_atividade(request):
-    template = 'normasPDF/atividade_atividade.html'
+    template = 'normasPDF/atividade_atividade_atividade.html'
     return render(request, template)
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def atividade_atividade_trabalho(request):
-    template = 'normasPDF/atividade_atividade.html'
+    template = 'normasPDF/atividade_atividade_trabalho.html'
     return render(request, template)
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def atividade_atividade_operacao(request):
-    template = 'normasPDF/atividade_atividade.html'
+    template = 'normasPDF/atividade_atividade_operacao.html'
     return render(request, template)
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def atividade_atividade_tarefa(request):
-    template = 'normasPDF/atividade_atividade.html'
+    template = 'normasPDF/atividade_atividade_tarefa.html'
     return render(request, template)
 
 

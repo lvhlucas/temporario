@@ -2,12 +2,13 @@
 {% block conectado %}
 <style>
     .a {width: 100%;}
-    .b{width: 15%;background-color: gray;padding:5px;height:500px;}
+    .b{width:150px;background-color: gray;padding:5px;height:500px;}
     .largura{min-width:200px;}
     .inlineblock{display:inline-block;}
     .margintop{margin-top:10px;}
+    .marginbottom{margin-bottom:10px;}
 </style>
-<div>
+<div class="margintop">
     <div class="b inlineblock">
         <button class=" a" id="empreendimento" disabled>Empreendimentos</button>
         <button class=" a" id="obras" disabled>Obras</button>
@@ -22,7 +23,7 @@
         <div>
             {% include "normasPDF/categorias.html" with empresas=empresa %}
         </div>
-        <div style="margin-top: 10px;" id="extensao">
+        <div id="extensao" class="margintop" >
             {% block extensao %}
             {% endblock %}
         </div>

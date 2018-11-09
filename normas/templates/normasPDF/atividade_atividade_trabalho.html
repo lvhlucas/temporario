@@ -1,0 +1,61 @@
+{% block estrututra_extensao %}
+<style>
+    .inlineblock{display:inlineblock;}
+    table, th, td {border: 1px solid black;}
+</style>
+<p style="font-size:30px;">Etapa de Trabalho</p>
+<div>
+    <div style="float:right;">
+        Cod. Geral ET
+        <input type="text">
+    </div>
+</div>
+<div>
+    <div class="inlineblock" style="width:70;">
+        Nº Reg.
+        <br>
+        <input type="text"style="width:100%;">
+    </div>
+    <div class="inlineblock" style="width:70px;">
+        Fase Exec.
+        <br>
+        <input type="text"style="width:100%;">
+    </div>
+    <div class="inlineblock" style="width:70px;">
+        Cód. Ativ.
+        <br>
+        <input type="text"style="width:100%;">
+    </div>
+    <div class="inlineblock" style="width:80px;">
+        Cód. E.Trab.
+        <br>
+        <input type="text"style="width:100%;">
+    </div>
+    <div class="inlineblock" style="width:200px;">
+        Etapa de Trabalho
+        <br>
+        <input type="text"style="width:100%;">
+    </div>
+    <table style="heigth:100px;overflow-y:scroll;margin-top:10px;">
+        <tr>
+            <th style="width:80px;">Fase</th>
+            <th style="width:80px;">Exec.</th>
+            <th style="width:80px;">Ativ.</th>
+            <th style="width:80px;">Nº Ref.</th>
+            <th style="width:80px;">Cód.</th>
+            <th style="width:280px;">Titulo.</th>
+        </tr>
+        {% for i in dado %}
+        <tr>
+            <td>{{i.0}}</td>
+            <td>{{i.1}}</td>
+            <td>{{i.2}}</td>
+            <td>{{i.3}}</td>
+            <td>{{i.4}}</td>
+            <td>{{i.5}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

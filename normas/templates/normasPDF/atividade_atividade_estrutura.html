@@ -1,32 +1,154 @@
-{% block estrtutra_extensao %}
+{% block estrututra_extensao %}
 <style>
     .inlineblock{display:inlineblock;}
-
-
+    .largura3{width:150px;}
 
 </style>
-<div class="inlineblock">
+<div>
+    <span style="font-size:30px;">Estrutura Organizacional - Gerência/Setor</span>
+    <div class="inlineblock" style="margin-left:50px;">
+        Cód. Empresa
+        <br>
+        <input type="text">
+    </div>
+    <div class="inlineblock">
+        Reg. Num.
+        <br>
+        <input type="text">
+    </div>
+    <button>Fechar</button>
+</div>
+<div class="inlineblock" style="vertical-align:top;">
     <div>
-        <input type="text" placeholder="Nivel">
-        <input type="text" placeholder="Cod. Ger/Setor">
-        <input type="text" placeholder="Nome Setor">
-        <input type="text" placeholder="Nome Gerente">
-        <input type="text" placeholder="Chave ">
-        <input type="text" placeholder="Ramal Ger.">
-        <input type="text" placeholder="Cod. Edifício">
-    </div>
-    <div class="inlineblock">
-        <input type="text" placeholder="Cod. Gerencia/Setor">
-        <input type="text" placeholder="Cod. Geral">
-        <input type="text" placeholder="Cargo">
-    </div>
-    <div class="inlineblock">
         <div class="inlineblock">
-            <
+            Nivel - Cod. Ger/Setor
+            <br>
+            <input type="text" style="width:40px;">
+            <input type="text">
         </div>
-        <div class="inlineblock"></div>
+        <div class="inlineblock">
+            Nome Setor
+            <br>
+            <input type="text" class="largura3">
+        </div>
+        <div class="inlineblock">
+            Nome Gerente
+            <br>
+            <input type="text" class="largura3">
+        </div>
+        <div class="inlineblock">
+            Chave
+            <br>
+            <input type="text" class="largura3">
+        </div>
+        <div class="inlineblock">
+            Ramal Gerente
+            <br>
+            <input type="text" class="largura3">
+        </div>
+        <div class="inlineblock">
+            Cód. Edificio
+            <br>
+            <input type="text" class="largura3">
+        </div>
+    </div>
+    <div>
+        <div class="inlineblock">
+            Cód. Gerencia/Setor
+            <br>
+            <input type="text">
+        </div>
+        <div class="inlineblock">
+            Cód. Geral
+            <br>
+            <input type="text">
+        </div>
+        <div class="inlineblock">
+            Cargo
+            <br>
+            <input type="text">
+        </div>
+        <div class="inlineblock" style="float:right;">
+            Gestão
+            <div class="inlineblock">
+                Data Inicio
+                <br>
+                <input type="date" style="height:26px;">
+            </div>
+            <div class="inlineblock">
+                Data Fim
+                <br>
+                <input type="date" style="height:26px;">
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="inlineblock">
+            Qualidade Profess. Ger.
+            <br>
+            <input type="text">
+        </div>
+        <div class="inlineblock">
+            End_Post
+            <br>
+            <input type="text">
+        </div>
+        <div class="inlineblock">
+            Trab
+            <br>
+            <input type="text">
+        </div>
+        <div class="inlineblock">
+            Local Cidade
+            <br>
+            <input type="text">
+        </div>
+        <div class="inlineblock">
+            UF
+            <br>
+            <input type="text" style="width:50px;">
+        </div>
+    </div>
+    <div>
+        <div class="inlineblock" style="vertical-align:top;">
+            Dados Gerencia/Setor
+            <input type="checkbox">Organograma
+            <br>
+            <input type="text" style="width:400px;height:150px;">
+        </div>
+        <div class="inlineblock" style="vertical-align:bottom;">
+            <div style="border: 1px solid black;padding:2px;">
+                <div class="inlineblock">
+                    Secretaria
+                    <br>
+                    <input type="text">
+                    <br>
+                    <input type="text">
+                </div>
+                <div class="inlineblock">
+                    Ramal
+                    <br>
+                    <input type="text">
+                    <br>
+                    <input type="text">
+                </div>
+                <div style="text-align:right;">
+                    Telefone
+                    <input type="text">
+                    <br>
+                    Fax
+                    <input type="text">
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 <div class="inlineblock">
-    <img src="">
+    <img src="" style="width:100%;height:250px;">
+    <br>
+    <button>...</button>
+    <input type="text">
 </div>
+
+{% endblock %}

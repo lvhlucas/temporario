@@ -1,0 +1,72 @@
+{% block estrututra_extensao %}
+<style>
+    .inlineblock{display:inlineblock;}
+    table, th, td {border: 1px solid black;}
+</style>
+<p style="font-size:30px;">Operação</p>
+<div class="inlineblock" style="width:50%;vertical-align:top;">
+    Cod. Geral Oper.
+    <input type="text">
+    <div style="margin-top:10px;">
+        <div class="inlineblock" style="width:50px;">
+            Nº Ref.
+            <br>
+            <input type="text" style="width:100%;">
+        </div>
+        <div class="inlineblock" style="width:80px;">
+            Cód. Et.Ger
+            <br>
+            <input type="text" style="width:100%;">
+        </div>
+        <div class="inlineblock" style="width:60px;">
+            Cód. Ativ.
+            <br>
+            <input type="text" style="width:100%;">
+        </div>
+        <div class="inlineblock" style="width:100px;">
+            Cód. Et.Trab.
+            <br>
+            <input type="text" style="width:100%;">
+        </div>
+        <div class="inlineblock" style="width:80px;">
+            Cód. Oper.
+            <br>
+            <input type="text" style="width:100%;">
+        </div>
+        <div class="inlineblock" style="width:250px;">
+            Operação
+            <br>
+            <input type="text" style="width:100%;">
+        </div>
+    </div>
+    <table style="heigth:100px;overflow-y:scroll;margin-top:10px;">
+        <tr>
+            <th style="width:70px;">Nº Reg.</th>
+            <th style="width:70px;">Et.Ger</th>
+            <th style="width:70px;">Ativ.</th>
+            <th style="width:70px;">Nº Ref.</th>
+            <th style="width:70px;">Cód.</th>
+            <th style="width:270px;">Titulo.</th>
+        </tr>
+        {% for i in dado %}
+        <tr>
+            <td>{{i.0}}</td>
+            <td>{{i.1}}</td>
+            <td>{{i.2}}</td>
+            <td>{{i.3}}</td>
+            <td>{{i.4}}</td>
+            <td>{{i.5}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="inlineblock" style="width:">
+    Nota Técnica
+    <br>
+    <input type="text" style="width:100%;height:150;">
+    <br>
+    Procedimentos Relacionados
+    <br>
+    <input type="text" style="width:100%;height:150;">
+</div>
+{% endblock %}
