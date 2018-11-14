@@ -1,0 +1,45 @@
+{% extends 'normasPDF/fase1.html' %}
+
+{% block conectado %}
+
+<style>
+table, th, td {
+    border: 1px solid black;
+    padding:5px;
+}
+
+
+</style>
+<div style="padding:10px;background-color:gray;">
+    {% for key,value in normas.items %}
+    <button id="{{key}}" >+</button>
+    {{key}}
+    <br>
+    <div id="tabela{{key}}" style="display:none">
+        <table name="tableT">
+            {% for norma in value %}
+            <tr>
+                <td>
+                    <!--se não houver subnormas disabled button-->
+                    <button id="{{norma.0}}">+</button>
+                    {{norma.0}}
+                </td>
+                <td>{{norma.1}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endfor %}
+</div>
+
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+
+    });
+    $("button").click(function(){
+        $("#tabela"+this.id).toggle();
+    });
+</script>
+{% endblock inner_js %}
+{% endblock %}

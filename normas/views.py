@@ -250,6 +250,17 @@ def atividade_atividade_tarefa(request):
     return render(request, template)
 
 
+@user_passes_test(nivel_logado, login_url='/login/')
+def normas(request):
+    template = 'normasPDF/normas.html'
+    conteudo = {'NR-11': [['1', 'conteudo de 1'], ['1.1', 'conteudo de 1.1'], ['1.2', 'conteudo de 1.2'],
+                               ['2', 'conteudo de 2'], ['3', 'conteudo de 3'], ['3.1', 'conteudo de 3.1']],
+                'NR-12': [['10', 'conteudo de 1'], ['1.1', 'conteudo de 1.1'], ['1.2', 'conteudo de 1.2'],
+                               ['2', 'conteudo de 2'], ['3', 'conteudo de 3'], ['3.1', 'conteudo de 3.1']]
+                }
+    return render(request, template, {'normas': conteudo})
+
+
 def signup(request):
     if request.method == 'POST':
         form = RequisitaNovoUsuario(request.POST)

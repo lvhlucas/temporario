@@ -25,6 +25,7 @@ urlpatterns = [
     path('atividade/atividade/trabalho', views.atividade_atividade_trabalho, name='atividade_atividade_trabalho'),
     path('atividade/atividade/operacao', views.atividade_atividade_operacao, name='atividade_atividade_operacao'),
     path('atividade/atividade/tarefa', views.atividade_atividade_tarefa, name='atividade_atividade_tarefa'),
+    path('normas', views.normas, name='normas'),
     path('exclui/', views.exclui_setor, name='exclui_setor'),
     # generalizar get_info, utilizando o nivel do permissão do usuário requerente.
     path('get_info/diretoria/', views.get_diretorias, name='get_diretorias'),
