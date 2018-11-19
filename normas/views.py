@@ -253,18 +253,38 @@ def atividade_atividade_tarefa(request):
 @user_passes_test(nivel_logado, login_url='/login/')
 def normas(request):
     template = 'normasPDF/normas.html'
-    conteudo = {'NR-11': [['1', 'conteudo de 1'], ['1.1', 'conteudo de 1.1'], ['1.2', 'conteudo de 1.2'],
-                               ['2', 'conteudo de 2'], ['3', 'conteudo de 3'], ['3.1', 'conteudo de 3.1']],
-                'NR-12': [['10', 'conteudo de 1'], ['1.1', 'conteudo de 1.1'], ['1.2', 'conteudo de 1.2'],
-                               ['2', 'conteudo de 2'], ['3', 'conteudo de 3'], ['3.1', 'conteudo de 3.1']]
-                }
-    return render(request, template, {'normas': conteudo})
+
+    # documento, categoria, identificador, conteudo, norma_pai, possui_subnorma(mudar para lista)
+    conteudo = {
+        "documento1": {
+            "categoria1": {
+                "identificador1": ["conteudo", "", 0],
+                "identificador2": ["conteudo", "", 1],
+                "identificador2.1": ["conteudo", "identificador2", 0]
+            },
+            "categoria2": {
+                "identificador3": ["conteudo", "", 0],
+                "identificador4": ["conteudo", "", 0]
+            }
+        },
+        "documento2": {
+            "categoria3": {
+                "identificador5": ["conteudo", "", 0],
+                "identificador6": ["conteudo", "", 0]
+            },
+            "categoria4": {
+                "identificador7": ["conteudo", "", 0],
+                "identificador8": ["conteudo", "", 0]
+            }
+        }
+    }
+    return render(request, template, {'resultado': conteudo})
 
 
 def signup(request):
     if request.method == 'POST':
         form = RequisitaNovoUsuario(request.POST)
-        if form.is_valid():  # mudar validação, buscar codigo de empresa
+        if form.is_valid():  # mudar validação, buscando codigo de empresa
             user = form.save(commit=False)
             user.is_active = False
             user.username = get_random_string(length=6)

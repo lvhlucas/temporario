@@ -3,32 +3,51 @@
 {% block conectado %}
 
 <style>
-table, th, td {
-    border: 1px solid black;
-    padding:5px;
-}
+th, td {border-bottom: 1px solid #ddd;padding:5px;}
+table{display:none;margin:20px;}
+table
+
+
+
+
+
 
 
 </style>
 <div style="padding:10px;background-color:gray;">
-    {% for key,value in normas.items %}
-    <button id="{{key}}" >+</button>
-    {{key}}
-    <br>
-    <div id="tabela{{key}}" style="display:none">
-        <table name="tableT">
-            {% for norma in value %}
+    {% for documento,categorias in resultado.items %}
+    <button name="{{documento}}">+</button>
+    <span>{{documento}}</span>
+    <div id="{{documento}}" style="display:none;border: 1px solid black;">
+        {% for categoria,conteudo in categorias.items %}
+        <div style="margin:10px;border:1px solid black;padding:2px;">
+            <button name="{{categoria}}">+</button>
+            <span>{{categoria}}</span>
+        </div>
+        <table id="{{categoria}}">
+            {% for norma, conteudo2 in conteudo.items %}
+            {% if conteudo2.1 == "" %}
             <tr>
                 <td>
-                    <!--se não houver subnormas disabled button-->
-                    <button id="{{norma.0}}">+</button>
-                    {{norma.0}}
+                    {% if conteudo2.2 == 0 %}
+                    <button name="{{norma}}" disabled>+</button>
+                    {% else %}
+                    <button name="{{norma}}">+</button>
+                    {% endif %}
+                    <span>{{norma}}</span>
                 </td>
-                <td>{{norma.1}}</td>
+                <td>{{conteudo2.0}}</td>
             </tr>
+            {% else %}
+            <div id="{{norma}}" style="display:none;">
+                
+            </div>
+            {% endif %}
             {% endfor %}
         </table>
+        {% endfor %}
     </div>
+    <br>
     {% endfor %}
 </div>
 
@@ -38,8 +57,20 @@ table, th, td {
 
     });
     $("button").click(function(){
-        $("#tabela"+this.id).toggle();
+        $("#"+this.name).toggle();
+        if ($(this).html()=="+")
+            $(this).html("-");
+        else
+            $(this).html("+");
     });
+
+
+
+
+
+
+
+
 </script>
 {% endblock inner_js %}
 {% endblock %}
