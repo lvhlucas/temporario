@@ -1,0 +1,80 @@
+{% block normas_extensao %}
+<Style>
+    .inlineblock{display:inlineblock;}
+    table,td,tr{border:1px solid black;padding:5px;}
+    p{margin:0px;}
+
+</Style>
+<div style="padding:10px;">
+    <p style="font-size:30px;">Tipo de Documento</p>
+    <div style="border:1px solid black;padding:10px;overflow:auto;">
+        <div class="inlineblock">
+            <div class="inlineblock" style="width:50px;">
+                <p>Nº Reg.</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:50px;">
+                <p>Nº Ref.</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:50px;">
+                <p>Cod.</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:500px;">
+                <p>Titulo - Tipo de Documento</p>
+                <input type="text" style="width:100%;">
+            </div>
+        </div>
+        <div class="inlineblock" style="border:1px solid black;width:80px;padding:5px;float:right;">
+            <button style="width:100%;">Novo</button>
+            <button style="width:100%;">Editar</button>
+            <button style="width:100%;">Salvar</button>
+            <button style="width:100%;">Excluir</button>
+        </div>
+        <div class="inlineblock" style="float:right;vertical-align:middle;margin:10px;">
+            <button><</button>
+            <button>></button>
+            <br>
+            <span>Lista</span>
+            <button id="lista1">^</button>
+        </div>
+
+    </div>
+    <div style="display:none;margin-top:10px;" id="lista1_div">
+        <table>
+            <tr>
+                <th>Nº Ref</th>
+                <th>TipoDoDoc</th>
+                <th>Tipo do documento</th>
+                <th>Doc Cadastr.</th>
+            </tr>
+            <tr>
+                {% for i in conteudo %}
+                <Td>{{i.0}}</Td>
+                <td>{{i.1}}</td>
+                <td>{{i.2}}</td>
+                <td>{{i.3}}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+</div>
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#lista1").click(function(){
+            $("#lista1_div").toggle();
+        });
+        $("#lista2").click(function(){
+            $("#lista2_div").toggle();
+        });
+    });
+
+
+
+
+
+</script>
+{% endblock inner_js %}
+{% endblock %}

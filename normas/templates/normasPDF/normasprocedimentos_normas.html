@@ -1,0 +1,178 @@
+{% block normasprocedimento_extensao %}
+<style>
+    .inlineblock{display:inlineblock;}
+    select{width:100px;}
+    table,td,tr{border:1px solid black;padding:5px;}
+
+</style>
+<div style="padding:10px;overflow:auto;background-color:gray;">
+    <div class="inlineblock" style="width:70%;">
+        <span style="font-size:30px;">Normas e Procedimentos</span>
+        <div style="float:right;">
+            <div class="inlineblock">
+                <p>Grupo Ref.</p>
+                <select></select>
+            </div>
+            <div class="inlineblock">
+                <p>Código do documento</p>
+                <input style="width:200px;">
+            </div>
+        </div>
+        <div style="background-color:lightgray;padding:2px;clear:both;margin-top:10px;">
+            <span>Titulo</span>
+            <input style="width:95%;">
+        </div>
+    </div>
+    <div class="inlineblock">
+        <span>Lista</span>
+        <button id="lista_button2">^</button>
+    </div>
+    <div class="inlineblock" style="border:1px solid lightgray;padding:5px;float:right;width:80px;">
+        <button style="width:100%;">Burscar</button>
+        <button style="width:100%;margin-top:10px;">Novo</button>
+        <button style="width:100%;">Editar</button>
+        <button style="width:100%;">Salvar</button>
+        <button style="width:100%;">Excluir</button>
+        <button style="width:100%;margin-top:10px;">Abrir</button>
+    </div>
+    <div class="inlineblock" style="border: 1px solid black;padding:10px;margin-top:10px;width:50%;vertical-align:top;">
+        <table style="height-max:100px;overflow-y:scroll;">
+            <tr>
+                <td>Objeto</td>
+                <td style="width:100%;">Descrição</td>
+            </tr>
+            {% if conteudo %}
+            <tr>
+                {% for i in conteudo %}
+                <td>{{i.0}}</td>
+                <td>{{i.1}}</td>
+                {% endfor %}
+            </tr>
+            {% endif %}
+        </table>
+        <p>Assunto</p>
+        <input style="width:100%;">
+        <p>Palavras Chave</p>
+        <input style="width:100%;">
+    </div>
+    <div class="inlineblock">
+        <div style="border:1px solid black;padding:10px;">
+            <span>Pasta do Arquivo(Path)</span>
+            <br>
+            <div style="background-color:lightgray;padding:5px;text-align:right;">
+                <span>Bibliot. Sistema</span>
+                <button>.</button>
+                <br>
+                <span>Arqu. Comum</span>
+                <button>.</button>
+                <br>
+                <span>Apresent.(Fig.)</span>
+                <button>.</button>
+            </div>
+        </div>
+        <div style="margin-top:10px;background-color:lightgray;padding:5px;">
+            <div class="inlineblock" style="width:100;">
+                <p>Nº Reg.</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:50;">
+                <p>Nº Ref.</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:100;">
+                <p>Cod. Docum.</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:50;">
+                <p>Nº Rev.</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:120;">
+                <p>Data Ultima Rev.</p>
+                <input type="text" style="width:100%;">
+            </div>
+        </div>
+    </div>
+    <div style="border:1px solid black;padding:10px;margin-top:10px;width:30%;">
+        <span>Categ. Doc.</span>
+        <input style="width:100px;">
+        <button>.</button>
+        <br>
+        <div class="inlineblock" style="text-align:right;">
+            <br>
+            <span>Empresa</span>
+            <input style="width:150px;">
+            <br>
+            <span>Gerencia</span>
+            <input style="width:150px;">
+            <br>
+            <span>Área</span>
+            <input style="width:150px;">
+            <br>
+            <span >Atividade</span>
+            <input style="width:150px;margin-top:5px;">
+            <br>
+            <span>Operação</span>
+            <input style="width:150px;">
+        </div>
+        <div class="inlineblock" >
+            <span style="text-align:center;">Cod.</span>
+            <br>
+            <input style="width:50px;">
+            <button>.</button>
+            <br>
+            <input style="width:50px;">
+            <button>.</button>
+            <br>
+            <input style="width:50px;">
+            <button>.</button>
+            <br>
+            <input style="width:50px;margin-top:5px;">
+            <button>.</button>
+            <br>
+            <input style="width:50px;">
+            <button>.</button>
+        </div>
+    </div>
+    <div style="display:none;border:1px solid black;padding:10px;" id="lista_escondida">
+        <table>
+            <tr>
+                <td>Reg.</td>
+                <td>Categor. Doc.</td>
+                <td>Ativ. Oper.</td>
+                <td>Ref.</td>
+                <td>Empresa</td>
+                <td>Doc.</td>
+                <td>Rev.</td>
+                <td>Data</td>
+                <td>Norma/Procedimento</td>
+            </tr>
+            {% if conteudo %}
+            <tr>
+                {% for i in conteudo %}
+                <td>{{i.0}}</td>
+                <td>{{i.1}}</td>
+                <td>{{i.2}}</td>
+                <td>{{i.3}}</td>
+                <td>{{i.4}}</td>
+                <td>{{i.5}}</td>
+                <td>{{i.6}}</td>
+                <td>{{i.7}}</td>
+                <td>{{i.8}}</td>
+                {% endfor %}
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+{% block inner_js %}
+<script>
+    $(document).ready(function(){
+        $("#lista_button2").click(function(){
+            $("#lista_escondida").toggle();
+        });
+    });
+
+</script>
+{% endblock %}
+{% endblock %}

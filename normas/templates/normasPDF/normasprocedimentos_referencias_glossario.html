@@ -1,0 +1,106 @@
+{% block normas_extensao %}
+<Style>
+    .inlineblock{display:inlineblock;}
+    table,td,tr{border:1px solid black;padding:5px;}
+    p{margin:0px;}
+    select{width:200px;}
+</Style>
+<div style="padding:10px;background-color:gray;">
+    <p style="font-size:30px;">Glossário</p>
+    <div class="inlineblock" style="width:400px;">
+        <p>Palavra Chave</p>
+        <input type="text" style="width:100%;">
+    </div>
+    <div class="inlineblock" style="text-align:right;">
+        <span>Área Relacionada</span>
+        <select id="select01"></select>
+        <button></button>
+        <br>
+        <span>Assunto Tipo</span>
+        <select id="select02"></select>
+        <button></button>
+    </div>
+    <div class="inlineblock" style="vertical-align:middle;">
+        <button id="pesquisar">Pesquisar</button>
+    </div>
+    <div style="border:1px solid black;padding:10px;overflow:auto;margin-top:10px;">
+        <div class="inlineblock">
+            <div class="inlineblock" style="width:50px;">
+                <p>Nº Reg.</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:50px;">
+                <p>Nº Ref.</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:100px;">
+                <p>Doc. Tipo</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:50px;">
+                <p>Cod.</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:250px;">
+                <p>Titulo de Norma ou Procedimento</p>
+                <input type="text" style="width:100%;">
+            </div>
+            <br>
+            <span>Cod. de Estr. Org.:</span>
+            <input type="text" style="width:80%;">
+        </div>
+        <div class="inlineblock" style="border:1px solid black;width:80px;padding:5px;float:right;">
+            <button style="width:100%;">Novo</button>
+            <button style="width:100%;">Editar</button>
+            <button style="width:100%;">Salvar</button>
+            <button style="width:100%;">Excluir</button>
+        </div>
+        <div class="inlineblock" style="float:right;vertical-align:middle;margin:10px;">
+            <button><</button>
+            <button>></button>
+            <br>
+            <span>Lista</span>
+            <button id="lista1">^</button>
+        </div>
+        <div style="width:100%;">
+            <p>Descrição</p>
+            <input type="text" style="width:100%;height:100px;overflow-y:scroll;">
+        </div>
+    </div>
+    <div style="display:none;margin-top:10px;" id="lista1_div">
+        <table>
+            <tr>
+                <th>Reg.</th>
+                <th>Ref. 1</th>
+                <th>Ref. 2</th>
+                <th>Área Relacionada</th>
+                <th>Doc. Tipo</th>
+                <th>Norma ou Procedimento</th>
+                <th>Norma/Procedimento</th>
+            </tr>
+            <tr>
+                {% for i in conteudo %}
+                <Td>{{i.0}}</Td>
+                <td>{{i.1}}</td>
+                <td>{{i.2}}</td>
+                <td>{{i.3}}</td>
+                <td>{{i.4}}</td>
+                <td>{{i.5}}</td>
+                <td>{{i.6}}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+</div>
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#lista1").click(function(){
+            $("#lista1_div").toggle();
+        });
+    });
+
+
+</script>
+{% endblock inner_js %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% block normasprocedimento_extensao %}
+<Style>
+
+</Style>
+<div  style="background-color:gray;" >
+    <div  style="background-color:lightgray;padding:10px;">
+        <button id="id_gerencia2">1. Gerencia/Area</button>
+        <button id="id_atividade2">2. Atividade</button>
+        <button id="id_operacao2">3. Operação</button>
+        <button id="id_tipo2">4. Tipo de Documento</button>
+        <button id="id_assunto2">5. Assunto</button>
+        <button id="id_glossario2">6. Glossário</button>
+    </div>
+    <div id="normas_extensao" style="margin-top:10px;">
+        {% block normas_extensao %}
+        {% endblock %}
+    </div>
+</div>
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#id_gerencia2").click(function(){
+        $("#normas_extensao").load("/base/normasprocedimentos/referencias/gerencia");
+    });
+    $("#id_atividade2").click(function(){
+        $("#normas_extensao").load("/base/normasprocedimentos/referencias/atividade");
+    });
+    $("#id_operacao2").click(function(){
+        $("#normas_extensao").load("/base/normasprocedimentos/referencias/operacao");
+    });
+    $("#id_tipo2").click(function(){
+        $("#normas_extensao").load("/base/normasprocedimentos/referencias/tipo");
+    });
+    $("#id_assunto2").click(function(){
+        $("#normas_extensao").load("/base/normasprocedimentos/referencias/assunto");
+    });
+    $("#id_glossario2").click(function(){
+        $("#normas_extensao").load("/base/normasprocedimentos/referencias/glossario");
+    });
+});
+</script>
+{% endblock inner_js %}
+{% endblock %}

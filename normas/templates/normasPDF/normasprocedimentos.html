@@ -1,0 +1,40 @@
+{% extends "normasPDF/fase1.html" %}
+{% block conectado %}
+<style>
+    .a {width: 100%;}
+    .b{width: 150px;background-color: gray;padding:5px;height:500px;}
+    .inlineblock{display:inline-block;}
+    .margintop{margin-top:10px;}
+</style>
+<div>
+    <div class="b inlineblock">
+        <button class=" a" id="referencias">Dados Referencias</button>
+        <button class=" a margintop" id="normas">Normas e Procedimentos</button>
+        <button class=" a margintop" id="estudos">Estudos Especiais</button>
+    </div>
+    <div class="inlineblock " style="width: 84%;vertical-align:top; ">
+        <div>
+            {% include "normasPDF/categorias_normas.html" with empresas=empresas %}
+        </div>
+        <div style="margin-top: 10px;" id="extensao">
+            {% block normasprocedimento_extensao %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#referencias").click(function(){
+        $("#extensao").load("/base/normasprocedimentos/referencias");
+    });
+    $("#normas").click(function(){
+        $("#extensao").load("/base/normasprocedimentos/normas");
+    });
+    $("#estudos").click(function(){
+        $("#extensao").load("/base/normasprocedimentos/estudos");
+    });
+});
+</script>
+{% endblock inner_js %}
+{% endblock %}

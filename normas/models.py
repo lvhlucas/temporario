@@ -2,25 +2,31 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class TitulosNorma(models.Model):
-    nome_titulo = models.TextField(max_length=50)
+class CategoriaNorma(models.Model):
+    nome_categoria = models.TextField(max_length=50)
 
     def __str__(self):
-        return self.nome_titulo
+        return self.nome_categoria
 
 
-class NormaPdf(models.Model):
-    tituloFK = models.ForeignKey(TitulosNorma, on_delete=models.CASCADE)
-    documento = models.IntegerField(default=0)
-    norma1 = models.CharField(max_length=5)
-    norma2 = models.CharField(max_length=5)
-    norma3 = models.CharField(max_length=5)
+class Documento(models.Model):
+    nome_documento = models.TextField(max_length=50)
+
+    def __str__(self):
+        return self.nome_documento
+
+
+class NormaPDF(models.Model):
+    documentoFK = models.ForeignKey(Documento, on_delete=models.CASCADE)
+    categoriaFK = models.ForeignKey(CategoriaNorma, on_delete=models.CASCADE)
+    norma_paiFK = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    identificador = models.CharField(max_length=10)
+    possui_subnorma = models.BooleanField()
     conteudo = models.TextField(max_length=500)
 
     def __str__(self):
-        return str(self.documento) + " - " + str(
-            self.tituloFK) + " - " + self.norma1 + "." + self.norma2 + "." + self.norma3 + " - " + \
-               str(self.conteudo)
+        return str(self.documentoFK) + " - " + str(self.categoriaFK) + " - " + str(self.identificador) + "-"\
+               + str(self.norma_paiFK) + "." + str(self.possui_subnorma) + " - " + str(self.conteudo)
 
 
 class Empresa(models.Model):

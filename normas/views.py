@@ -13,6 +13,7 @@ from django.utils.encoding import force_text
 from django.template.loader import render_to_string
 from normas.tokens import account_activation_token
 from django.contrib import messages
+from normas.models import NormaPDF
 from django.http import JsonResponse
 import json
 
@@ -251,34 +252,96 @@ def atividade_atividade_tarefa(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
+def normasprocedimentos(request):
+    template = "normasPDF/normasprocedimentos.html"
+
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
 def normas(request):
     template = 'normasPDF/normas.html'
 
     # documento, categoria, identificador, conteudo, norma_pai, possui_subnorma(mudar para lista)
-    conteudo = {
-        "documento1": {
-            "categoria1": {
-                "identificador1": ["conteudo", "", 0],
-                "identificador2": ["conteudo", "", 1],
-                "identificador2.1": ["conteudo", "identificador2", 0]
-            },
-            "categoria2": {
-                "identificador3": ["conteudo", "", 0],
-                "identificador4": ["conteudo", "", 0]
-            }
-        },
-        "documento2": {
-            "categoria3": {
-                "identificador5": ["conteudo", "", 0],
-                "identificador6": ["conteudo", "", 0]
-            },
-            "categoria4": {
-                "identificador7": ["conteudo", "", 0],
-                "identificador8": ["conteudo", "", 0]
-            }
-        }
-    }
-    return render(request, template, {'resultado': conteudo})
+    # conteudo = {
+    #     "documento1": {
+    #         "categoria1": {
+    #             "identificador1": ["conteudo", "", 0],
+    #             "identificador2": ["conteudo", "", 1],
+    #             "identificador2.1": ["conteudo", "identificador2", 0]
+    #         }
+    #     }
+    # }
+    try:
+        conteudo = NormaPDF.objects.all()
+        resposta = ""
+    except:  # especificar o except. falha ao conectar ao banco de dados
+        resposta = "Falha ao comuniar com o banco de dados"
+    return render(request, template, {'resultado': conteudo, 'sucesso': resposta})
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def normasprocedimentos_normas(request):
+    template = 'normasPDF/normasprocedimentos_normas.html'
+
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def normasprocedimentos_estudos(request):
+    template = 'normasPDF/normasprocedimentos_estudos.html'
+
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def normasprocedimentos_referencias(request):
+    template = 'normasPDF/normasprocedimentos_referencias.html'
+
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def normasprocedimentos_referencias_gerencia(request):
+    print("aquiswddddddddddddddddddddddddddddddddddddddddddd")
+    template = 'normasPDF/normasprocedimentos_referencias_gerencia.html'
+
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def normasprocedimentos_referencias_atividade(request):
+    template = 'normasPDF/normasprocedimentos_referencias_atividade.html'
+
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def normasprocedimentos_referencias_operacao(request):
+    template = 'normasPDF/normasprocedimentos_referencias_operacao.html'
+
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def normasprocedimentos_referencias_tipo(request):
+    template = 'normasPDF/normasprocedimentos_referencias_tipo.html'
+
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def normasprocedimentos_referencias_assunto(request):
+    template = 'normasPDF/normasprocedimentos_referencias_assunto.html'
+
+    return render(request, template)
+
+
+@user_passes_test(nivel_logado, login_url='/login/')
+def normasprocedimentos_referencias_glossario(request):
+    template = 'normasPDF/normasprocedimentos_referencias_glossario.html'
+
+    return render(request, template)
 
 
 def signup(request):

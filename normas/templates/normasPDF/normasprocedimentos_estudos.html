@@ -1,0 +1,146 @@
+{% block normasprocedimento_extensao %}
+<style>
+    .inlineblock{display:inlineblock;}
+    select{width:100px;}
+    table,td,tr{border:1px solid black;padding:5px;}
+</style>
+<div style="padding:10px;overflow:auto;background-color:gray;">
+    <div class="inlineblock" style="width:70%;">
+        <span style="font-size:30px;">Estudos Especiais</span>
+        <div style="float:right;">
+            <div class="inlineblock">
+                <p>Grupo Ref.</p>
+                <select></select>
+            </div>
+            <div class="inlineblock">
+                <p>Código do documento</p>
+                <input style="width:200px;">
+            </div>
+        </div>
+        <div style="background-color:lightgray;padding:2px;clear:both;margin-top:10px;">
+            <span>Titulo</span>
+            <input style="width:95%;">
+        </div>
+        <div class="inlineblock">
+            <p>Objetivo</p>
+            <input style="width:600px;height:80px;overflow-y:scroll;">
+        </div>
+        <div class="inlineblock">
+            <span>Lista</span>
+            <button id="lista_button2">^</button>
+        </div>
+    </div>
+    <div class="inlineblock" style="border:1px solid lightgray;padding:5px;float:right;width:80px;">
+        <button style="width:100%;">Burscar</button>
+        <button style="width:100%;margin-top:10px;">Novo</button>
+        <button style="width:100%;">Editar</button>
+        <button style="width:100%;">Salvar</button>
+        <button style="width:100%;">Excluir</button>
+        <button style="width:100%;margin-top:10px;">Abrir</button>
+    </div>
+    <div style="background-color:lightgray;padding:10px;margin-top:10px;">
+        <div class="inlineblock" style="width:50%;vertical-align:top;">
+            <p>Caracteristicas do Estudo</p>
+            <input style="width:100%;height:50px;">
+        </div>
+        <div class="inlineblock" style="width:48%;">
+            <p>Históricos/Registros</p>
+            <input style="width:100%;height:50px;">
+        </div>
+        <div>
+            <div class="inlineblock" style="width:300px;vertical-align:top;">
+                <p>Gerencia(código estrutural)</p>
+                <input style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:600px;">
+                <p>Coordenador Técnico/Gerente Aprovador(Nome)</p>
+                <input style="width:100%;">
+                <input style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:120px;">
+                <p>Cod. Coord.</p>
+                <input style="width:100%;">
+                <input style="width:100%;">
+            </div>
+            <div class="inlineblock" style="width:100px;vertical-align:top;">
+                <p>Nº de Particip.</p>
+                <input style="width:100%;">
+            </div>
+        </div>
+        <p>Palavras Chave</p>
+        <input style="width:100%;">
+    </div>
+    <div class="inlineblock" style="border: 1px solid black;padding:10px;margin-top:10px;">
+        <p>Biblioteca de Arquivos(Path)</p>
+        <div style="background-color:lightgray;text-align:center;">
+            <span>Relatório</span>
+            <button>.</button>
+            <button>.</button>
+            <br>
+            <span>Estudo</span>
+            <button>.</button>
+            <button>.</button>
+        </div>
+    </div>
+    <div class="inlineblock" style="border:1px solid black;float:right;padding:10px;margin-top:10px;">
+        <span style="vertical-align:top;">Data</span>
+        <div class="inlineblock" style="width:50px;">
+            <p>Inicio</p>
+            <input style="width:100%;">
+        </div>
+        <div class="inlineblock" style="width:50px;">
+            <p>Fim</p>
+            <input style="width:100%;">
+        </div>
+        <div class="inlineblock" style="width:50px;margin-left:10px;">
+            <p>Relat.</p>
+            <input style="width:100%;">
+        </div>
+        <div class="inlineblock" style="text-align:center;">
+            <p>Conbluido(S/N)</p>
+            <input type="checkbox" >
+        </div>
+    </div>
+    <div style="display:none;margin-top:10px;" id="lista_escondida">
+        <table>
+            <tr>
+                <td>Nº Reg.</td>
+                <td>Empresa</td>
+                <td>Área Relac.</td>
+                <td>Assunto Tipo</td>
+                <td>Nº Ref.</td>
+                <td>Ult. Rev.</td>
+                <td>Titulo</td>
+                <td>Nº Partic.</td>
+                <td>Concl.</td>
+            </tr>
+            {% if conteudo %}
+            <tr>
+                {% for i in conteudo %}
+                <td>{{i.0}}</td>
+                <td>{{i.1}}</td>
+                <td>{{i.2}}</td>
+                <td>{{i.3}}</td>
+                <td>{{i.4}}</td>
+                <td>{{i.5}}</td>
+                <td>{{i.6}}</td>
+                <td>{{i.7}}</td>
+                <td>{{i.8}}</td>
+                {% endfor %}
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+{% block inner_js %}
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#lista_button2").click(function(){
+        console.log("aqui");
+        $("#lista_escondida").toggle();
+    });
+});
+
+</script>
+{% endblock %}
+{% endblock %}

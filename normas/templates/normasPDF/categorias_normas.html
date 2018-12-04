@@ -1,0 +1,64 @@
+{% block categoria %}
+<style>
+    .botao{height:5px;width:5px;}
+    .largura{width:200px;}
+    .inlineblock{display:inlineblock;}
+
+</style>
+<div style="background-color: gray; padding: 10px;">
+    <div class="inlineblock" style="border: 1px solid black;padding:10px;">
+        <!--os select iniciam todos habilitados, estive momente em que disabilita?-->
+        <span>Empresa</span>
+        <select id="id_empresa" class="largura"></select>
+        <input id="id_codigo_empresa" placeholder="Código">
+        <br>
+        <span>Gerência</span>
+        <select id="id_gerencia" class="largura"></select>
+        <span>Área</span>
+        <select id="id_area" class="largura"></select>
+        <input id="id_gerencia_area_empresa" placeholder="Código">
+        <br>
+        <span>Atividade</span>
+        <select id="id_atividade" class="largura"></select>
+        <span>Operação</span>
+        <select id="id_operacao" class="largura"></select>
+        <input id="id_atividade_operacao_empresa" placeholder="Código">
+    </div>
+    <div class="inlineblock">
+        <p>Nº de itens selecionados</p>
+        <input id="qtd_itens">
+        <br>
+        <span>Lista</span>
+        <button id="lista_button1">^</button>
+    </div>
+    <div style="margin-top:5px;">
+        <span>Categoria Documento</span>
+        <select id="categoria_documento" class="largura"></select>
+        <span>Assunto</span>
+        <select id="assunto" style="width:400px;"></select>
+        <span>Glossário</span>
+        <button>?</button>
+    </div>
+</div>
+{% block inner_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    $("#id_empresa").change(function () {
+
+    });
+    $("#id_gerencia").change(function () {
+
+    });
+    $("#id_area").change(function () {
+
+    });
+    $("#id_atividade").change(function () {
+
+    });
+    $("#id_operacao").change(function () {
+
+    });
+});
+</script>
+{% endblock inner_js %}
+{% endblock %}
