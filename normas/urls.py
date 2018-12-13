@@ -42,12 +42,6 @@ urlpatterns = [
          name='normasprocedimentos_referencias_assunto'),
     path('normasprocedimentos/referencias/glossario', views.normasprocedimentos_referencias_glossario,
          name='normasprocedimentos_referencias_glossario'),
-    path('exclui/', views.exclui_setor, name='exclui_setor'),
-    # generalizar get_info, utilizando o nivel do permissão do usuário requerente.
-    path('get_info/diretoria/', views.get_diretorias, name='get_diretorias'),
-    path('get_info/empresa/', views.get_empresas, name='get_empresas'),
-    path('get_info/gerencia/', views.get_gerencias, name='get_gerencias'),
-    path('get_info/divisao/', views.get_divisoes, name='get_divisoes'),
-    path('get_info/areatrab/', views.get_areatrabalhos, name='get_areatrabalhos'),
-    path('get_info/especialidade/', views.get_especialidades, name='get_especialidades'),
+    path('exclui/', views.exclui_nivel1, name='exclui_nivel1'),
+    path('get_nivel1/', views.get_nivel1, name='get_nivel1'),
 ]

@@ -43,14 +43,14 @@
             <br>
         </div>
         <div class="inlineblock">
+            <select id="id_divisao" class="largura" disabled></select><br>
             <select id="id_areatrab" class="largura" disabled></select><br>
             <select id="id_especialidade" class="largura" disabled></select><br>
-            <select id="id_divisao" class="largura" disabled></select><br>
         </div>
         <div class="inlineblock">
+            <input id="id_divisao2" class="box2" disabled><br>
             <input id="id_areatrab2" class="box2" disabled><br>
             <input id="id_especialidade2" class="box2" disabled><br>
-            <input id="id_divisao2" class="box2" disabled><br>
         </div>
     </div>
     <div class="inlineblock">
@@ -81,7 +81,7 @@
         $("#id_divisao").empty().prop("disabled", true);
         $("#id_areatrab").empty().prop("disabled", true);
         $("#id_especialidade").empty().prop("disabled", true);
-        $.get("/base/get_info/diretoria",{data:$("#id_empresa option:selected").val()},function(resultado){
+        $.get("/base/get_nivel1/",{data:$("#id_empresa option:selected").val(),tipo:"diretoria"},function(resultado){
             $.each(resultado.diretorias, function(index, value){
                 $("#id_diretoria").append(new Option(value[1], value));
             });
@@ -93,7 +93,7 @@
         $("#id_divisao").empty().prop("disabled", true);
         $("#id_areatrab").empty().prop("disabled", true);
         $("#id_especialidade").empty().prop("disabled", true);
-        $.get("/base/get_info/gerencia",{data:$("#id_diretoria option:selected").val()},function(resultado){
+        $.get("/base/get_nivel1/",{data:$("#id_diretoria option:selected").val(),tipo:"gerencia"},function(resultado){
             $.each(resultado.gerencias, function(index, value){
                 $("#id_gerencia").append(new Option(value[1]));
             });
@@ -103,7 +103,7 @@
         $("#id_divisao").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
         $("#id_areatrab").empty().prop("disabled", true);
         $("#id_especialidade").empty().prop("disabled", true);
-        $.get("/base/get_info/divisao",{data:$("#id_gerencia option:selected").val()},function(resultado){
+        $.get("/base/get_nivel1/",{data:$("#id_gerencia option:selected").val(),tipo:"divisao"},function(resultado){
             $.each(resultado.divisoes, function(index, value){
                 $("#id_divisao").append(new Option(value[1]));
             });
@@ -112,7 +112,7 @@
     $("#id_divisao").change(function () {
         $("#id_areatrab").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
         $("#id_especialidade").empty().prop("disabled", true);
-        $.get("/base/get_info/areatrab",{data:$("#id_divisao option:selected").val()},function(resultado){
+        $.get("/base/get_nivel1/",{data:$("#id_divisao option:selected").val(),tipo:"areatrabalho"},function(resultado){
             $.each(resultado.areatrabalhos, function(index, value){
                 $("#id_areatrab").append(new Option(value[1]));
             });
@@ -120,9 +120,9 @@
     });
     $("#id_areatrab").change(function () {
         $("#id_especialidade").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
-        $.get("/base/get_info/especialidade",{data:$("#id_areatrab option:selected").val()},function(resultado){
+        $.get("/base/get_nivel1/",{data:$("#id_areatrab option:selected").val(),tipo:"especialidade"},function(resultado){
             $.each(resultado.especialidades, function(index, value){
-                $("#id_especialidades").append(new Option(value[1]));
+                $("#id_especialidade").append(new Option(value[1]));
             });
         });
     });

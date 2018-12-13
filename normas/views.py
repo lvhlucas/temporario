@@ -68,51 +68,34 @@ def empresa(request):
     return render(request, 'normasPDF/empresa.html', {'empresas': empresas})
 
 
-def get_empresas(request):
-    # buscar no bd todas as diretorias atravez do cod_empresa (request.GET.get("data"))
-    resultado = {'empresas': [['01', 'Empresa H', 'Dono H'], ['02', 'Empresa J', 'Dono J']]}
+def get_nivel1(request):
+    resultado = {}
+    print(request)
+    # falta verificar o nivel de segurança do usuário.
+    # fazer a buscar no banco de dados para cada setor utilizando request.GET.get("data") como paramentro
+    # resultado esperado para retorno {"nomesetor":[['id','nome'],['id',nome']]}
+    if request.GET.get("tipo") == "empresa" or request == "empresa":
+        print("aqui")
+        resultado = {'empresas': [['01', 'Empresa H', 'Dono H'], ['02', 'Empresa J', 'Dono J']]}
+    elif request.GET.get("tipo") == "diretoria":
+        resultado = {'diretorias': [['01', 'Diretoria A', 'Diretor A'], ['02', 'Diretoria B', 'Diretor B']]}
+    elif request.GET.get("tipo") == "gerencia":
+        resultado = {'gerencias': [['014', 'Gerencia C', 'Gerente C'], ['015', 'Gerencia D', 'Gerente D']]}
+    elif request.GET.get("tipo") == "divisao":
+        resultado = {'divisoes': [['17', 'Divisão Q', 'Encarregado Q'], ['18', 'Divisão R', 'Encarregado QR']]}
+    elif request.GET.get("tipo") == "areatrabalho":
+        resultado = {'areatrabalhos': [['40', 'Área trabalho T'], ['40', 'Área trabalho U']]}
+    elif request.GET.get("tipo") == "especialidade":
+        resultado = {'especialidades': [['21', 'Programador'], ['22', 'Analista']]}
+    elif request.GET.get("tipo") == "funcao":
+        resultado = {'funcoes': [['21', 'X'], ['22', 'C']]}
+
     return JsonResponse(resultado)
 
 
-def get_diretorias(request):
-    # buscar no bd todas as diretorias atravez do cod_empresa (request.GET.get("data"))
-    resultado = {'diretorias': [['01', 'Diretoria A', 'Diretor A'], ['02', 'Diretoria B', 'Diretor B']]}
-    return JsonResponse(resultado)
-
-
-def get_gerencias(request):
-    # buscar no bd todas as gerencias atravez do cod_empresa, cod_diretoria
-    resultado = {'gerencias': [['014', 'Gerencia C', 'Gerente C'], ['015', 'Gerencia D', 'Gerente D']]}
-    return JsonResponse(resultado)
-
-
-def get_divisoes(request):
-    # buscar no bd todas as divisões atravez do cod_empresa, cod_diretoria, cod_gerencia
-    resultado = {'divisoes': [['17', 'Divisão Q', 'Encarregado Q'], ['18', 'Divisão R', 'Encarregado QR']]}
-    return JsonResponse(resultado)
-
-
-def get_areatrabalhos(request):
-    # buscar no bd todas as diretorias atravez do cod_empresa (request.GET.get("data"))
-    resultado = {'areatrabalhos': [['40', 'Área trabalho T'], ['40', 'Área trabalho U']]}
-    return JsonResponse(resultado)
-
-
-def get_especialidades(request):
-    # buscar no bd todas as diretorias atravez do cod_empresa (request.GET.get("data"))
-    resultado = {'especialidades': [['21', 'Programador'], ['22', 'Analista']]}
-    return JsonResponse(resultado)
-
-
-def get_funcao(request):
-    # buscar no bd todas as diretorias atravez do cod_empresa (request.GET.get("data"))
-    resultado = {'funcoes': [['21', 'X'], ['22', 'C']]}
-    return JsonResponse(resultado)
-
-
-def exclui_setor(request):
+def exclui_nivel1(request):
     try:
-        # excluir no bd a diretoria passada no parametro
+        # excluir no bd o dado passada no parametro
         resposta = "Setor excluido com sucesso."
     except:
         resposta = "Houve um problema na excluisão."
@@ -126,62 +109,62 @@ def estrutura(request):
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_empresa(request):
-    codigo = request.POST.get('data', None)
+    conteudo = "empresa"
     template = 'normasPDF/empresa_estrutura_empresa.html'
 
-    return render(request, template, {'setor': json.loads(get_empresas(codigo).content), 'tipo': 'Empresa'})
+    return render(request, template, {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'Empresa'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_diretoria(request):
-    codigo_empresa = request.POST.get('data', None)
+    conteudo = "diretoria"
     template = 'normasPDF/empresa_estrutura_diretoria.html'
 
-    return render(request, template, {'setor': json.loads(get_diretorias(codigo_empresa).content), 'tipo': 'diretoria'})
+    return render(request, template, {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'diretoria'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_gerencia(request):
-    codigo_diretoria = request.POST.get('data', None)
+    conteudo = "gerencia"
     template = 'normasPDF/empresa_estrutura_gerencia.html'
 
     return render(request, template,
-                  {'setor': json.loads(get_gerencias(codigo_diretoria).content), 'tipo': 'gerencia'})
+                  {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'gerencia'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_divisao(request):
-    codigo_diretoria = request.POST.get('data', None)
+    conteudo = "divisao"
     template = 'normasPDF/empresa_estrutura_divisao.html'
 
     return render(request, template,
-                  {'setor': json.loads(get_divisoes(codigo_diretoria).content), 'tipo': 'divisões'})
+                  {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'divisões'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_areatrab(request):
-    codigo = request.POST.get('data', None)
+    conteudo = "areatrabalho"
     template = 'normasPDF/empresa_estrutura_areatrab.html'
 
     return render(request, template,
-                  {'setor': json.loads(get_areatrabalhos(codigo).content), 'tipo': 'Área de trabalhos'})
+                  {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'Área de trabalhos'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_especializacao(request):
-    codigo = request.POST.get('data', None)
+    conteudo = "especialidade"
     template = 'normasPDF/empresa_estrutura_especializacao.html'
 
     return render(request, template,
-                  {'setor': json.loads(get_especialidades(codigo).content), 'tipo': 'especialidades'})
+                  {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'especialidades'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_funcao(request):
-    codigo = request.POST.get('data', None)
+    conteudo = "funcao"
     template = 'normasPDF/empresa_estrutura_funcao.html'
 
-    return render(request, template, {'setor': json.loads(get_funcao(codigo).content), 'tipo': 'Funções'})
+    return render(request, template, {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'Funções'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
@@ -303,7 +286,6 @@ def normasprocedimentos_referencias(request):
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def normasprocedimentos_referencias_gerencia(request):
-    print("aquiswddddddddddddddddddddddddddddddddddddddddddd")
     template = 'normasPDF/normasprocedimentos_referencias_gerencia.html'
 
     return render(request, template)

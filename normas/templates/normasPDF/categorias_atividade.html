@@ -74,7 +74,7 @@
         $("#id_etapatrabalho").empty().prop("disabled", true);
         $("#id_atividade").empty().prop("disabled", true);
         $("#id_operacao").empty().prop("disabled", true);
-        $.get("/base/get_info/empreendimento",{data:$("#id_empreendimento option:selected").val()},function(resultado){
+        $.get("/base/get_nivel1/",{data:$("#id_empreendimento option:selected").val(),tipo:"empreendiemento"},function(resultado){
             $.each(resultado.empreendimentos, function(index, value){
                 $("#id_obra").append(new Option(value[1], value));
             });
@@ -85,7 +85,7 @@
         $("#id_etapatrabalho").empty().prop("disabled", true);
         $("#id_atividade").empty().prop("disabled", true);
         $("#id_operacao").empty().prop("disabled", true);
-        $.get("/base/get_info/obra",{data:$("#id_obra option:selected").val()},function(resultado){
+        $.get("/base/get_nivel1/",{data:$("#id_obra option:selected").val(),tipo:"obra"},function(resultado){
             $.each(resultado.obras, function(index, value){
                 $("#id_fase").append(new Option(value[1]));
             });
@@ -95,7 +95,7 @@
         $("#id_etapatrabalho").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
         $("#id_atividade").empty().prop("disabled", true);
         $("#id_operacao").empty().prop("disabled", true);
-        $.get("/base/get_info/fase",{data:$("#id_fase option:selected").val()},function(resultado){
+        $.get("/base/get_nivel1/",{data:$("#id_fase option:selected").val(),tipo:"fase"},function(resultado){
             $.each(resultado.fases, function(index, value){
                 $("#id_etapatrabalho").append(new Option(value[1]));
             });
@@ -104,7 +104,7 @@
     $("#id_etapatrabalho").change(function () {
         $("#id_atividade").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
         $("#id_operacao").empty().prop("disabled", true);
-        $.get("/base/get_info/etapatrabalho",{data:$("#id_etapatrabalho option:selected").val()},function(resultado){
+        $.get("/base/get_nivel1",{data:$("#id_etapatrabalho option:selected").val(),tipo:"etapatrabalho"},function(resultado){
             $.each(resultado.etapatrabalhos, function(index, value){
                 $("#id_atividade").append(new Option(value[1]));
             });
@@ -112,7 +112,7 @@
     });
     $("#id_atividade").change(function () {
         $("#id_operacao").empty().append("<option disabled SELECTED></option>").prop("disabled", false);
-        $.get("/base/get_info/atividade",{data:$("#id_atividade option:selected").val()},function(resultado){
+        $.get("/base/get_nivel1/",{data:$("#id_atividade option:selected").val(),tipo:"atividade"},function(resultado){
             $.each(resultado.atividades, function(index, value){
                 $("#id_especialidades").append(new Option(value[1]));
             });
