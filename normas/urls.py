@@ -28,6 +28,8 @@ urlpatterns = [
     path('normasprocedimentos/', views.normasprocedimentos, name='normasprocedimentos'),
     path('normasprocedimentos/normas', views.normasprocedimentos_normas, name='normasprocedimentos_normas'),
     path('normasprocedimentos/estudos', views.normasprocedimentos_estudos, name='normasprocedimentos_estudos'),
+    path('normasprocedimentos/procedimentos', views.normasprocedimentos_procedimentos,
+         name='normasprocedimentos_procedimentos'),
     path('normasprocedimentos/referencias', views.normasprocedimentos_referencias,
          name='normasprocedimentos_referencias'),
     path('normasprocedimentos/referencias/gerencia', views.normasprocedimentos_referencias_gerencia,

@@ -6,57 +6,59 @@
 
 </style>
 <div style="background-color: gray; padding: 10px;">
-    <div class="inlineblock" style="border: 1px solid black;padding:10px;">
-        <!--os select iniciam todos habilitados, estive momente em que disabilita?-->
+    <div class="inlineblock">
+        <p>Pesquisa</p>
+        <button>Ok</button>
+    </div>
+    <div class="inlineblock" style="border: 1px solid black;padding:10px;margin-bottom:10px;">
+        <!--atualmente os select iniciam todos habilitados, existe momento em que disabilita?-->
         <span>Empresa</span>
         <select id="id_empresa" class="largura"></select>
-        <input id="id_codigo_empresa" placeholder="Código">
-        <br>
         <span>Gerência</span>
         <select id="id_gerencia" class="largura"></select>
+        <input id="id_codigo_empresa_gerencia" placeholder="Código">
+        <br>
         <span>Área</span>
         <select id="id_area" class="largura"></select>
-        <input id="id_gerencia_area_empresa" placeholder="Código">
-        <br>
         <span>Atividade</span>
         <select id="id_atividade" class="largura"></select>
         <span>Operação</span>
         <select id="id_operacao" class="largura"></select>
-        <input id="id_atividade_operacao_empresa" placeholder="Código">
+        <input id="id_atividade_operacao_atividade_area" placeholder="COD">
+    </div>
+    <br>
+    <div class="inlineblock">
+        <span>Categ. Doc.</span>
+        <select id="id_categoria_documento" class="largura"></select>
+        <span>Assunto</span>
+        <input type="text" id="id_assunto" style="width:300px;">
+        <span>Glossário</span>
+        <button>.</button>
+        <br>
+        <span>Palavra Chave</span>
+        <input type="text" id="id_palavra_chave" style="width:80%;">
     </div>
     <div class="inlineblock">
-        <p>Nº de itens selecionados</p>
-        <input id="qtd_itens">
+        <span>Nº de itens selecionados</span>
+        <input type="text" class="largura">
         <br>
         <span>Lista</span>
-        <button id="lista_button1">^</button>
+        <button>^</button>
     </div>
-    <div style="margin-top:5px;">
-        <span>Categoria Documento</span>
-        <select id="categoria_documento" class="largura"></select>
-        <span>Assunto</span>
-        <select id="assunto" style="width:400px;"></select>
-        <span>Glossário</span>
-        <button>?</button>
-    </div>
+</div>
+<div style="margin-top:10px;background-color:gray;padding:10px;">
+    <span>Titulo</span>
+    <input type="text" id="id_titulo" style="width:400px;">
+    <input type="text" id="id_codigo" style="width:100px;" placeholder="Código">
+    <span>Rev.</span>
+    <input type="text" id="rev" style="width:50px;">
+    <button id="mostra_normas">Abrir</button>
 </div>
 {% block inner_js %}
 <script type="text/javascript">
     $(document).ready(function(){
-    $("#id_empresa").change(function () {
-
-    });
-    $("#id_gerencia").change(function () {
-
-    });
-    $("#id_area").change(function () {
-
-    });
-    $("#id_atividade").change(function () {
-
-    });
-    $("#id_operacao").change(function () {
-
+    $("#mostra_normas").click(function () {
+        $("#extensao").load("/base/normasprocedimentos/normas");
     });
 });
 </script>

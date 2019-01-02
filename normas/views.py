@@ -70,12 +70,10 @@ def empresa(request):
 
 def get_nivel1(request):
     resultado = {}
-    print(request)
     # falta verificar o nivel de segurança do usuário.
     # fazer a buscar no banco de dados para cada setor utilizando request.GET.get("data") como paramentro
     # resultado esperado para retorno {"nomesetor":[['id','nome'],['id',nome']]}
-    if request.GET.get("tipo") == "empresa" or request == "empresa":
-        print("aqui")
+    if request.GET.get("tipo") == "empresa":
         resultado = {'empresas': [['01', 'Empresa H', 'Dono H'], ['02', 'Empresa J', 'Dono J']]}
     elif request.GET.get("tipo") == "diretoria":
         resultado = {'diretorias': [['01', 'Diretoria A', 'Diretor A'], ['02', 'Diretoria B', 'Diretor B']]}
@@ -242,8 +240,8 @@ def normasprocedimentos(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def normas(request):
-    template = 'normasPDF/normas.html'
+def normasprocedimentos_normas(request):
+    template = 'normasPDF/normasprocedimentos_normas.html'
 
     # documento, categoria, identificador, conteudo, norma_pai, possui_subnorma(mudar para lista)
     # conteudo = {
@@ -264,8 +262,8 @@ def normas(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def normasprocedimentos_normas(request):
-    template = 'normasPDF/normasprocedimentos_normas.html'
+def normasprocedimentos_procedimentos(request):
+    template = 'normasPDF/normasprocedimentos_procedimentos.html'
 
     return render(request, template)
 
