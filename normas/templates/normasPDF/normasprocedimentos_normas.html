@@ -1,6 +1,6 @@
 {% block normasprocedimento_extensao %}
 <style>
-    .borda_baixo{border-bottom:1px solid #ddd;}
+    .borda_baixo{border-bottom:1px solid #ddd;margin-top:10px;}
     .floatright{float:right;}
 	.escondido{display:show;margin-left:50px;}
 </style>
@@ -13,7 +13,7 @@
         {% endif %}
             <input type="text" style="width:50px;" disabled value="{{norma.identificador}}">
             <input type="text" style="width:150px;" disabled value="{{norma.categoriaFK}}">
-            <span class="borda_baixo" >{{norma.conteudo|truncatechars:120}}</span>
+            <span>{{norma.conteudo|truncatechars:120}}</span>
             <input type="text" style="width:50px;" disabled>
         {% if norma.possui_subnorma == False %}
             <button disabled >+</button>
