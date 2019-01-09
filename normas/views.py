@@ -242,23 +242,12 @@ def normasprocedimentos(request):
 @user_passes_test(nivel_logado, login_url='/login/')
 def normasprocedimentos_normas(request):
     template = 'normasPDF/normasprocedimentos_normas.html'
-
-    # documento, categoria, identificador, conteudo, norma_pai, possui_subnorma(mudar para lista)
-    # conteudo = {
-    #     "documento1": {
-    #         "categoria1": {
-    #             "identificador1": ["conteudo", "", 0],
-    #             "identificador2": ["conteudo", "", 1],
-    #             "identificador2.1": ["conteudo", "identificador2", 0]
-    #         }
-    #     }
-    # }
     try:
-        conteudo = NormaPDF.objects.all()
+        queryfromdatabase = NormaPDF.objects.all()
         resposta = ""
     except:  # especificar o except. falha ao conectar ao banco de dados
         resposta = "Falha ao comuniar com o banco de dados"
-    return render(request, template, {'resultado': conteudo, 'sucesso': resposta})
+    return render(request, template, {'resultado': queryfromdatabase, 'sucesso': resposta})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')

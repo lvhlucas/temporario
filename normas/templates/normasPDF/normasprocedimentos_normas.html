@@ -1,26 +1,33 @@
+
 {% block normasprocedimento_extensao %}
+{% load tags_edit_string %}
 <style>
     .borda_baixo{border-bottom:1px solid #ddd;margin-top:10px;}
     .floatright{float:right;}
-	.escondido{display:show;margin-left:50px;}
+	.escondido{display:none;margin-left:50px;}
 </style>
 <div style="padding:10px;background-color:gray;">
-    {% for norma in resultado %}        
+    {% for norma in resultado %}
         {% if norma.norma_paiFK == None %}
             <div class="borda_baixo">
         {% else %}
-            <div class="{{norma.norma_paiFK.identificador}} escondido borda_baixo">
+            <div class="{{norma.norma_paiFK.identificador|replace_dot_to:'_'}} escondido borda_baixo">
         {% endif %}
             <input type="text" style="width:50px;" disabled value="{{norma.identificador}}">
             <input type="text" style="width:150px;" disabled value="{{norma.categoriaFK}}">
-            <span>{{norma.conteudo|truncatechars:120}}</span>
+            <div style="width:785px;display:inline-block;vertical-align:top;">
+                <span class="{{norma.identificador|replace_dot_to:'_'}}texto">{{norma.conteudo|truncatechars:120}}</span>
+                <span class="{{norma.identificador|replace_dot_to:'_'}}texto" style="display:none;">{{norma.conteudo}}</span>
+            </div>
+            <div style="float:right;">
             <input type="text" style="width:50px;" disabled>
         {% if norma.possui_subnorma == False %}
             <button disabled >+</button>
         {% else %}
-            <button name="{{norma.identificador}}" >+</button>
+            <button class="2" name="{{norma.identificador|replace_dot_to:'_'}}" >+</button>
         {% endif %}
-            <button >.</button>
+            <button class="1" name="{{norma.identificador|replace_dot_to:'_'}}">.</button>
+                </div>
         </div>
     {% endfor %}
 </div>
@@ -30,11 +37,16 @@
 
     });
     $("button").click(function(){
-        $("."+this.name).toggle();
-        if ($(this).html()=="+")
-            $(this).html("-");
+        if (this.getAttribute("class") == "2")
+        {
+            $("."+this.name).toggle();
+            if ($(this).html()=="+")
+                $(this).html("-");
+            else
+                $(this).html("+");
+        }
         else
-            $(this).html("+");
+            $("."+this.name+"texto").toggle();
     });
 </script>
 {% endblock inner_js %}
