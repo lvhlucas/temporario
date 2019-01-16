@@ -124,9 +124,6 @@ LOGIN_REDIRECT_URL = '/base/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# Change 'default' database configuration with $DATABASE_URL.
-DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
-
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

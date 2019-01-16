@@ -16,8 +16,8 @@
             <input type="text" style="width:50px;" disabled value="{{norma.identificador}}">
             <input type="text" style="width:150px;" disabled value="{{norma.categoriaFK}}">
             <div style="width:785px;display:inline-block;vertical-align:top;">
-                <span class="{{norma.identificador|replace_dot_to:'_'}}texto">{{norma.conteudo|truncatechars:120}}</span>
-                <span class="{{norma.identificador|replace_dot_to:'_'}}texto" style="display:none;">{{norma.conteudo}}</span>
+                <span class="{{norma.id}}texto">{{norma.conteudo|truncatechars:120}}</span>
+                <span class="{{norma.id}}texto" style="display:none;">{{norma.conteudo}}</span>
             </div>
             <div style="float:right;">
             <input type="text" style="width:50px;" disabled>
@@ -26,7 +26,7 @@
         {% else %}
             <button class="2" name="{{norma.identificador|replace_dot_to:'_'}}" >+</button>
         {% endif %}
-            <button class="1" name="{{norma.identificador|replace_dot_to:'_'}}">.</button>
+            <button class="1" name="{{norma.id}}">.</button>
                 </div>
         </div>
     {% endfor %}
