@@ -5,6 +5,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
+from django.core.handlers.wsgi import WSGIRequest
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.crypto import get_random_string
 from django.utils.encoding import force_bytes
@@ -12,9 +14,10 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_text
 from django.template.loader import render_to_string
 from normas.tokens import account_activation_token
-from django.contrib import messages
 from normas.models import NormaPDF
 from django.http import JsonResponse
+
+
 import json
 
 
@@ -70,9 +73,12 @@ def empresa(request):
 
 def get_nivel1(request):
     resultado = {}
+    lista_setor = ["empresa", "diretoria", "gerencia", "divisao", "areatrabalho", "especialidade", "funcao"]
+
     # falta verificar o nivel de segurança do usuário.
     # fazer a buscar no banco de dados para cada setor utilizando request.GET.get("data") como paramentro
     # resultado esperado para retorno {"nomesetor":[['id','nome'],['id',nome']]}
+    print(request)
     if request.GET.get("tipo") == "empresa":
         resultado = {'empresas': [['01', 'Empresa H', 'Dono H'], ['02', 'Empresa J', 'Dono J']]}
     elif request.GET.get("tipo") == "diretoria":
@@ -107,15 +113,21 @@ def estrutura(request):
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_empresa(request):
-    conteudo = "empresa"
+    conteudo = WSGIRequest({
+        'REQUEST_METHOD': 'GET',
+        'wsgi.input': {"tipo": "empresa"},
+    })
     template = 'normasPDF/empresa_estrutura_empresa.html'
 
-    return render(request, template, {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'Empresa'})
+    return render(request, template, {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'empresa'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_diretoria(request):
-    conteudo = "diretoria"
+    conteudo = WSGIRequest({
+        'REQUEST_METHOD': 'GET',
+        'wsgi.input': {"tipo": "diretoria"},
+    })
     template = 'normasPDF/empresa_estrutura_diretoria.html'
 
     return render(request, template, {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'diretoria'})
@@ -123,7 +135,10 @@ def estrutura_diretoria(request):
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_gerencia(request):
-    conteudo = "gerencia"
+    conteudo = WSGIRequest({
+        'REQUEST_METHOD': 'GET',
+        'wsgi.input': {"tipo": "gerencia"},
+    })
     template = 'normasPDF/empresa_estrutura_gerencia.html'
 
     return render(request, template,
@@ -132,37 +147,49 @@ def estrutura_gerencia(request):
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_divisao(request):
-    conteudo = "divisao"
+    conteudo = WSGIRequest({
+        'REQUEST_METHOD': 'GET',
+        'wsgi.input': {"tipo": "divisao"},
+    })
     template = 'normasPDF/empresa_estrutura_divisao.html'
 
     return render(request, template,
-                  {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'divisões'})
+                  {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'divisao'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_areatrab(request):
-    conteudo = "areatrabalho"
+    conteudo = WSGIRequest({
+        'REQUEST_METHOD': 'GET',
+        'wsgi.input': {"tipo": "areatrabalho"},
+    })
     template = 'normasPDF/empresa_estrutura_areatrab.html'
 
     return render(request, template,
-                  {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'Área de trabalhos'})
+                  {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'areatrabalho'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_especializacao(request):
-    conteudo = "especialidade"
+    conteudo = WSGIRequest({
+        'REQUEST_METHOD': 'GET',
+        'wsgi.input': {"tipo": "especialidade"},
+    })
     template = 'normasPDF/empresa_estrutura_especializacao.html'
 
     return render(request, template,
-                  {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'especialidades'})
+                  {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'especialidade'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
 def estrutura_funcao(request):
-    conteudo = "funcao"
+    conteudo = WSGIRequest({
+        'REQUEST_METHOD': 'GET',
+        'wsgi.input': {"tipo": "funcao"},
+    })
     template = 'normasPDF/empresa_estrutura_funcao.html'
 
-    return render(request, template, {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'Funções'})
+    return render(request, template, {'setor': json.loads(get_nivel1(conteudo).content), 'tipo': 'funcao'})
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
