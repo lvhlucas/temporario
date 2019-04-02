@@ -120,7 +120,12 @@
 </div>
 {% block inner_js %}
 <script type="text/javascript">
-var teste=0;
+    var teste=0;
+    $("#id_empresa").change(function(){
+        teste++;
+        console.log("estrutura empresa",teste);
+        $("#estrutura_extensao").load("/base/empresa/estrutura/empresa");
+    });
     $(document).ready(function(){
     $("#button_organograma").click(function(){
         $("#organograma").toggle();
@@ -138,12 +143,7 @@ var teste=0;
        $("#tabela").hide();
        $("#organograma").hide();
     });
-    $("#id_empresa").change(function(){
-    teste++;
-    console.log("estrutura empresa",teste);
-    console.log("esturua_empresa");
-        $("#estrutura_extensao").load("/base/empresa/estrutura/empresa");
-    });
+
 });
 </script>
 {% endblock inner_js %}

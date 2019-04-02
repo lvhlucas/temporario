@@ -16,7 +16,7 @@ from django.template.loader import render_to_string
 from normas.tokens import account_activation_token
 from normas.models import NormaPDF
 from django.http import JsonResponse
-
+from subprocess import Popen, PIPE, STDOUT
 
 import json
 
@@ -73,12 +73,10 @@ def empresa(request):
 
 def get_nivel1(request):
     resultado = {}
-    lista_setor = ["empresa", "diretoria", "gerencia", "divisao", "areatrabalho", "especialidade", "funcao"]
 
     # falta verificar o nivel de segurança do usuário.
     # fazer a buscar no banco de dados para cada setor utilizando request.GET.get("data") como paramentro
     # resultado esperado para retorno {"nomesetor":[['id','nome'],['id',nome']]}
-    print(request)
     if request.GET.get("tipo") == "empresa":
         resultado = {'empresas': [['01', 'Empresa H', 'Dono H'], ['02', 'Empresa J', 'Dono J']]}
     elif request.GET.get("tipo") == "diretoria":
@@ -107,12 +105,12 @@ def exclui_nivel1(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def estrutura(request):
+def empresa_estrutura(request):
     return render(request, 'normasPDF/empresa_estrutura.html')
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def estrutura_empresa(request):
+def empresa_estrutura_empresa(request):
     conteudo = WSGIRequest({
         'REQUEST_METHOD': 'GET',
         'wsgi.input': {"tipo": "empresa"},
@@ -123,7 +121,7 @@ def estrutura_empresa(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def estrutura_diretoria(request):
+def empresa_estrutura_diretoria(request):
     conteudo = WSGIRequest({
         'REQUEST_METHOD': 'GET',
         'wsgi.input': {"tipo": "diretoria"},
@@ -134,7 +132,7 @@ def estrutura_diretoria(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def estrutura_gerencia(request):
+def empresa_estrutura_gerencia(request):
     conteudo = WSGIRequest({
         'REQUEST_METHOD': 'GET',
         'wsgi.input': {"tipo": "gerencia"},
@@ -146,7 +144,7 @@ def estrutura_gerencia(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def estrutura_divisao(request):
+def empresa_estrutura_divisao(request):
     conteudo = WSGIRequest({
         'REQUEST_METHOD': 'GET',
         'wsgi.input': {"tipo": "divisao"},
@@ -158,7 +156,7 @@ def estrutura_divisao(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def estrutura_areatrab(request):
+def empresa_estrutura_areatrab(request):
     conteudo = WSGIRequest({
         'REQUEST_METHOD': 'GET',
         'wsgi.input': {"tipo": "areatrabalho"},
@@ -170,7 +168,7 @@ def estrutura_areatrab(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def estrutura_especializacao(request):
+def empresa_estrutura_especializacao(request):
     conteudo = WSGIRequest({
         'REQUEST_METHOD': 'GET',
         'wsgi.input': {"tipo": "especialidade"},
@@ -182,7 +180,7 @@ def estrutura_especializacao(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def estrutura_funcao(request):
+def empresa_estrutura_funcao(request):
     conteudo = WSGIRequest({
         'REQUEST_METHOD': 'GET',
         'wsgi.input': {"tipo": "funcao"},
@@ -193,13 +191,13 @@ def estrutura_funcao(request):
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def funcionario(request):
+def empresa_funcionario(request):
     template = 'normasPDF/funcionario.html'
     return render(request, template)
 
 
 @user_passes_test(nivel_logado, login_url='/login/')
-def funcionario_cadastro(request):
+def empresa_funcionario_cadastro(request):
     template = 'normasPDF/funcionario_cadastro.html'
     return render(request, template)
 
@@ -339,6 +337,21 @@ def normasprocedimentos_referencias_glossario(request):
 
     return render(request, template)
 
+
+def pdf_exceel_normas(request):
+    template = 'normasPDF/base.html'
+    command = ["python", "somartech/scripts/teste.py", "1"]
+    try:
+        process = Popen(command, stdout=PIPE, stderr=STDOUT,shell=True)
+        output = process.stdout.read()
+        exitstatus = process.poll()
+        if exitstatus == 0:
+            print( "Success", output)
+        else:
+            print( "Failed_I", output)
+    except Exception as e:
+        print("failed", e)
+    return render(request, template)
 
 def signup(request):
     if request.method == 'POST':
