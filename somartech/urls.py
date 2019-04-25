@@ -30,5 +30,6 @@ urlpatterns = [
         name='activate'),
     url(r'^valida/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', valida_usuario_gerente,
         name='valida_usuario_gerente'),
+    
     url(r'^password/$', change_password, name='change_password'),
 ]
